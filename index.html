@@ -3151,7 +3151,7 @@
       border: 1.5px solid var(--sage);
       border-top: none;
       border-radius: 0 0 10px 10px;
-      max-height: 182px;
+      max-height: 264px;
       overflow-y: auto;
       scroll-behavior: smooth;
       z-index: 100;
@@ -4042,7 +4042,7 @@
           <span class="eyebrow">✦ Serve the Kingdom</span>
           <h1>Volunteer with Us</h1>
           <p>Are you interested in serving at <strong>Pastor Tony Osborn Ministries?</strong><br>
-            Join us in preaching the gospel to the nations!</p>
+            Be part of transforming lives around the world through Christ with Pastor Tony Osborn Ministries</p>
         </div>
 
         <!-- FORM CARD -->
@@ -4058,21 +4058,22 @@
 
           <!-- Contact -->
           <div class="field">
-            <label>Contact <span class="req">*</span></label>
-            <input type="tel" id="volContact" placeholder="Phone number" maxlength="10" inputmode="numeric"
+            <label>Phone Number <span class="req">*</span></label>
+            <input type="tel" id="volContact" placeholder="Eg +255 XXX XXX XX" maxlength="10" inputmode="numeric"
               oninput="this.value=this.value.replace(/\D/g,'').slice(0,10); this.classList.remove('invalid')">
             <div class="err-msg" id="contactErr">Please enter a valid 10-digit Tanzanian number</div>
           </div>
 
           <!-- Role Dropdown -->
-          <div class="sec-label">What would you like to do?</div>
+          <div class="sec-label">How would you like to serve?</div>
+          <p style="font-size:9px;color:var(--muted);font-weight:600;letter-spacing:0.5px;margin:-10px 0 12px;text-transform:lowercase;">You don't have experience? No problem - we'll guide you.</p>
           <div class="field">
-            <label>Select your role(s) <span class="req">*</span></label>
+            <label>Choose a Team <span class="req">*</span></label>
             <div class="multiselect" id="roleSelect">
 
               <!-- Trigger -->
               <div class="ms-trigger" id="msTrigger" onclick="toggleDropdown()">
-                <span class="ms-placeholder" id="msPlaceholder">Choose one or more roles...</span>
+                <span class="ms-placeholder" id="msPlaceholder">Select one or more teams...</span>
                 <i class="fas fa-chevron-down ms-arrow"></i>
               </div>
 
@@ -4174,21 +4175,21 @@
           </div>
 
           <!-- Schedule -->
-          <div class="sec-label">When would you like to serve?</div>
+          <div class="sec-label">When can you serve?</div>
           <div class="field">
-            <label>Availability <span class="req">*</span></label>
+            <label>Be Part of the Team <span class="req">*</span></label>
             <!-- Full Time -->
             <div class="sched-card fulltime-card" id="schedFullTime" onclick="pickFullTime(this)">
               <div class="s-radio" id="ftRadio"></div>
               <div style="flex:1">
-                <div class="s-title">Full Time</div>
+                <div class="s-title">All Services</div>
                 <div class="s-sub">Thursday, Saturday &amp; Sunday &mdash; all services</div>
               </div>
               <span class="ft-badge">ALL</span>
             </div>
 
             <!-- Or divider -->
-            <div class="or-divider" id="orDivider"><span>or pick specific days</span></div>
+            <div class="or-divider" id="orDivider"><span>Serve when it works for you</span></div>
 
             <!-- Day checkboxes -->
             <div class="day-grid" id="dayGrid">
@@ -4196,28 +4197,28 @@
                 <div class="d-check"><i class="fas fa-check"></i></div>
                 <div>
                   <div class="d-title">Thursday</div>
-                  <div class="d-sub">Weekly</div>
+                  <div class="d-sub">Most Weeks</div>
                 </div>
               </div>
               <div class="day-card" id="daySaturday" onclick="toggleDay(this,'Saturday')">
                 <div class="d-check"><i class="fas fa-check"></i></div>
                 <div>
                   <div class="d-title">Saturday</div>
-                  <div class="d-sub">Weekly</div>
+                  <div class="d-sub">Most Weeks</div>
                 </div>
               </div>
               <div class="day-card" id="daySunday" onclick="toggleDay(this,'Sunday')">
                 <div class="d-check"><i class="fas fa-check"></i></div>
                 <div>
                   <div class="d-title">Sunday</div>
-                  <div class="d-sub">Weekly</div>
+                  <div class="d-sub">Most Weeks</div>
                 </div>
               </div>
-              <div class="day-card" id="dayEvents" onclick="toggleDay(this,'Outdoor Events')">
+              <div class="day-card" id="dayEvents" onclick="toggleDay(this,'Special Events')">
                 <div class="d-check"><i class="fas fa-check"></i></div>
                 <div>
-                  <div class="d-title">Outdoor Events</div>
-                  <div class="d-sub">Conferences &amp; Special</div>
+                  <div class="d-title">Special Events</div>
+                  <div class="d-sub">Conferences &amp; Outreach</div>
                 </div>
               </div>
             </div>
@@ -4225,7 +4226,7 @@
           </div>
 
           <button class="submit-btn" onclick="volSubmitForm()">
-            <i class="fas fa-hands-helping"></i> Submit My Application
+            <i class="fas fa-hands-helping"></i> Join the Team
           </button>
 
         </div><!-- /form card -->
@@ -4761,6 +4762,8 @@
         const ccb = document.getElementById('cosmicCloseBtn'); if (ccb) ccb.style.display = 'flex';
         setNavDimmed(true);
         setDimmed(true);
+        // Push history state so back button closes the navigator
+        history.pushState({ pto: 'navigator' }, '');
       }
     }
     function pulseLetter(el) {
@@ -4816,15 +4819,31 @@
       if (p) p.classList.add('active');
       setDimmed(true);
       setNavDimmed(true);
+      // Push a history entry so the phone's back button closes this panel
+      history.pushState({ pto: 'panel', id: id }, '');
+    }
+    function closePanelById(id) {
+      var panel = document.getElementById(id);
+      if (!panel) return;
+      panel.classList.remove('active');
+      setDimmed(false);
+      setNavDimmed(false);
+      setTimeout(function () {
+        if (id === 'testimonies') resetForm('t');
+        if (id === 'prayerRequest') resetForm('p');
+        if (id === 'volunteer') resetVolunteerForm();
+      }, 300);
     }
     function closePanel(btn) {
       var panel = btn.closest('.content-panel');
+      var pid = panel.id;
       panel.classList.remove('active');
-      // Always clear dim/blur regardless of other panels
       setDimmed(false);
       setNavDimmed(false);
-      // Reset form after a tiny delay so it's invisible during reset
-      var pid = panel.id;
+      // If the close button was tapped, go back in history to keep it in sync
+      if (history.state && history.state.pto) {
+        history.back();
+      }
       setTimeout(function () {
         if (pid === 'testimonies') resetForm('t');
         if (pid === 'prayerRequest') resetForm('p');
@@ -4834,6 +4853,27 @@
     function closeAllPanels() {
       document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
     }
+
+    // ── BACK BUTTON HANDLER ───────────────────────────────────────────
+    window.addEventListener('popstate', function (e) {
+      // A panel or navigator was open — close it without leaving the page
+      if (cosmicOpen()) {
+        closeNavigator();
+        return;
+      }
+      var activePanel = document.querySelector('.content-panel.active');
+      if (activePanel) {
+        var pid = activePanel.id;
+        activePanel.classList.remove('active');
+        setDimmed(false);
+        setNavDimmed(false);
+        setTimeout(function () {
+          if (pid === 'testimonies') resetForm('t');
+          if (pid === 'prayerRequest') resetForm('p');
+          if (pid === 'volunteer') resetVolunteerForm();
+        }, 300);
+      }
+    });
 
     // ── CONNECT ACCOUNT SWITCHER ──────────────────────────────────────
     function switchAccount(id, btn) {
@@ -5543,7 +5583,7 @@
     }
 
     function getSchedValue() {
-      if (isFullTime) return 'Full Time (Thursday, Saturday & Sunday)';
+      if (isFullTime) return 'All Services (Thursday, Saturday & Sunday)';
       if (days.length) return days.join(', ');
       return '';
     }
@@ -5597,10 +5637,10 @@
           roles: roles.slice(),
           ministry: roles.join(', '),
           schedule: schedVal,
-          availSun: schedVal.indexOf('Sunday') > -1 || schedVal === 'Full Time (Thursday, Saturday & Sunday)',
-          availWeek: schedVal.indexOf('Thursday') > -1 || schedVal === 'Full Time (Thursday, Saturday & Sunday)',
-          availSat: schedVal.indexOf('Saturday') > -1 || schedVal === 'Full Time (Thursday, Saturday & Sunday)',
-          availEvents: schedVal.indexOf('Outdoor Events') > -1,
+          availSun: schedVal.indexOf('Sunday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
+          availWeek: schedVal.indexOf('Thursday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
+          availSat: schedVal.indexOf('Saturday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
+          availEvents: schedVal.indexOf('Special Events') > -1,
           contacted: false,
           attended: false
         });
