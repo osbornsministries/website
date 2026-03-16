@@ -94,16 +94,28 @@
       .lf input {
         width: 100%;
         padding: 11px 14px;
-        background: rgba(255, 255, 255, 0.09);
-        border: 1.5px solid rgba(255, 255, 255, 0.13);
+        background: rgba(255, 255, 255, 0.20);
+        border: 2px solid rgba(255, 255, 255, 0.25);
         border-radius: 8px;
-        color: var(--cream);
+        color: #ffffff;
         font-family: "Montserrat", sans-serif;
         font-size: 13px;
+        font-weight: 600;
         outline: none;
+        transition: all 0.3s ease;
+      }
+      .lf input::placeholder {
+        color: rgba(245, 239, 235, 0.6);
+        opacity: 1;
       }
       .lf input:focus {
-        border-color: var(--sage);
+        background: rgba(255, 255, 255, 0.30);
+        border-color: var(--gold);
+        box-shadow: 0 0 12px rgba(201, 168, 76, 0.4);
+        color: #ffffff;
+      }
+      .lf input:focus::placeholder {
+        opacity: 0.3;
       }
       #loginBtn {
         width: 100%;
