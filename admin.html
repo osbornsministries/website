@@ -1,0 +1,2016 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - Pastor Tony Osborn Ministry</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --navy: #2f4156;
+        --cream: #f5efeb;
+        --bg: #edeae6;
+        --sage: #647b6b;
+        --gold: #c9a84c;
+        --muted: #7a8a96;
+        --red: #c0392b;
+        --green: #27ae60;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: var(--bg);
+        min-height: 100vh;
+      }
+
+      /* LOGIN */
+      #loginScreen {
+        position: fixed;
+        inset: 0;
+        background: var(--navy);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 24px;
+      }
+      #loginScreen img {
+        width: 220px;
+        height: 220px;
+        object-fit: contain;
+        margin-bottom: 14px;
+        filter: invert(1);
+      }
+      #loginScreen h2 {
+        color: var(--cream);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      #loginScreen p {
+        color: rgba(245, 239, 235, 0.5);
+        font-size: 10px;
+        letter-spacing: 2px;
+        margin-bottom: 28px;
+      }
+      .login-box {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 28px 24px;
+        width: 100%;
+        max-width: 340px;
+      }
+      .lf {
+        margin-bottom: 14px;
+      }
+      .lf label {
+        display: block;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(245, 239, 235, 0.55);
+        margin-bottom: 6px;
+      }
+      .lf input {
+        width: 100%;
+        padding: 11px 14px;
+        background: rgba(255, 255, 255, 0.09);
+        border: 1.5px solid rgba(255, 255, 255, 0.13);
+        border-radius: 8px;
+        color: var(--cream);
+        font-family: "Montserrat", sans-serif;
+        font-size: 13px;
+        outline: none;
+      }
+      .lf input:focus {
+        border-color: var(--sage);
+      }
+      #loginBtn {
+        width: 100%;
+        padding: 13px;
+        background: var(--gold);
+        color: var(--navy);
+        border: none;
+        border-radius: 50px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 6px;
+      }
+      #loginBtn:hover {
+        opacity: 0.85;
+      }
+      #loginErr {
+        color: #e74c3c;
+        font-size: 10px;
+        text-align: center;
+        margin-top: 10px;
+        display: none;
+        font-weight: 700;
+      }
+
+      /* MAIN */
+      #adminWrap {
+        display: none;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .aheader {
+        background: var(--navy);
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .aheader-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .aheader img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        filter: invert(1);
+      }
+      .aheader h1 {
+        color: var(--cream);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+      .aheader span {
+        color: var(--gold);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        display: block;
+      }
+      #logoutBtn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 50px;
+        padding: 7px 14px;
+        color: var(--cream);
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      #logoutBtn:hover {
+        background: var(--red);
+        border-color: var(--red);
+      }
+
+      /* TABS */
+      .tabbar {
+        background: var(--navy);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 0 16px;
+        display: flex;
+        gap: 2px;
+        overflow-x: auto;
+      }
+      .tbtn {
+        padding: 11px 14px;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid transparent;
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(245, 239, 235, 0.4);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .tbtn.active {
+        color: var(--gold);
+        border-bottom-color: var(--gold);
+      }
+      .badge {
+        background: var(--gold);
+        color: var(--navy);
+        border-radius: 50px;
+        padding: 1px 6px;
+        font-size: 9px;
+        font-weight: 900;
+        margin-left: 4px;
+      }
+      .badge.s {
+        background: var(--sage);
+        color: white;
+      }
+
+      /* STATS */
+      .statsbar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 14px 18px;
+        background: var(--cream);
+        border-bottom: 1px solid rgba(47, 65, 86, 0.1);
+      }
+      .scard {
+        text-align: center;
+        padding: 10px 6px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(47, 65, 86, 0.06);
+      }
+      .scard .n {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--navy);
+      }
+      .scard .l {
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* BODY */
+      .abody {
+        padding: 18px;
+        flex: 1;
+      }
+      .tpanel {
+        display: none;
+      }
+      .tpanel.active {
+        display: block;
+      }
+
+      /* FILTERS */
+      .filters {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .finput {
+        flex: 1;
+        min-width: 130px;
+        padding: 8px 12px;
+        background: white;
+        border: 1.5px solid rgba(47, 65, 86, 0.12);
+        border-radius: 8px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 11px;
+        color: var(--navy);
+        outline: none;
+      }
+      .fsel {
+        padding: 8px 10px;
+        background: white;
+        border: 1.5px solid rgba(47, 65, 86, 0.12);
+        border-radius: 8px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        color: var(--navy);
+        outline: none;
+      }
+      .fclear {
+        padding: 8px 14px;
+        background: var(--navy);
+        color: var(--cream);
+        border: none;
+        border-radius: 8px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      /* CARDS */
+      .ecard {
+        background: white;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 10px rgba(47, 65, 86, 0.07);
+        border-left: 4px solid var(--sage);
+      }
+      .ecard.done {
+        border-left-color: var(--gold);
+        opacity: 0.72;
+      }
+      .ecard.pray {
+        border-left-color: #9b59b6;
+      }
+      .ehead {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 7px;
+      }
+      .ename {
+        font-size: 14px;
+        font-weight: 900;
+        color: var(--navy);
+      }
+      .edate {
+        font-size: 9px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .emeta {
+        font-size: 10px;
+        color: var(--muted);
+        margin-bottom: 7px;
+        line-height: 1.7;
+      }
+      .emeta i {
+        margin-right: 3px;
+      }
+      .emeta span {
+        margin-right: 10px;
+      }
+      .ecat {
+        display: inline-block;
+        background: rgba(47, 65, 86, 0.07);
+        color: var(--navy);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        padding: 3px 8px;
+        border-radius: 50px;
+        margin-bottom: 7px;
+      }
+      .emsg {
+        font-size: 12px;
+        color: #444;
+        line-height: 1.7;
+        overflow: hidden;
+        max-height: 58px;
+      }
+      .emsg.open {
+        max-height: 9999px;
+      }
+      .eacts {
+        display: flex;
+        gap: 7px;
+        margin-top: 11px;
+        flex-wrap: wrap;
+      }
+      .abtn {
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        cursor: pointer;
+        border: none;
+        text-transform: uppercase;
+      }
+      .abtn-read {
+        background: rgba(47, 65, 86, 0.06);
+        color: var(--navy);
+        border: 1.5px solid rgba(47, 65, 86, 0.15);
+      }
+      .abtn-attend {
+        background: rgba(100, 123, 107, 0.1);
+        color: var(--sage);
+        border: 1.5px solid var(--sage);
+      }
+      .abtn-attend:hover {
+        background: var(--sage);
+        color: white;
+      }
+      .abtn-attended {
+        background: var(--gold);
+        color: var(--navy);
+        border: none;
+      }
+      .abtn-del {
+        background: rgba(192, 57, 43, 0.07);
+        color: var(--red);
+        border: 1.5px solid var(--red);
+      }
+      .abtn-del:hover {
+        background: var(--red);
+        color: white;
+      }
+      .empty {
+        text-align: center;
+        padding: 50px 20px;
+        color: var(--muted);
+      }
+      .empty i {
+        font-size: 36px;
+        margin-bottom: 10px;
+        opacity: 0.25;
+        display: block;
+      }
+      .empty p {
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      /* CONTROLS */
+      .cgrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .ccard {
+        background: white;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 2px 10px rgba(47, 65, 86, 0.07);
+      }
+      .ccard.full {
+        grid-column: 1 / -1;
+      }
+      .ctitle {
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin-bottom: 4px;
+      }
+      .ctitle i {
+        color: var(--gold);
+        margin-right: 6px;
+      }
+      .cdesc {
+        font-size: 10px;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+      .cinput {
+        width: 100%;
+        padding: 9px 12px;
+        background: var(--bg);
+        border: 1.5px solid rgba(47, 65, 86, 0.12);
+        border-radius: 8px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 12px;
+        color: var(--navy);
+        outline: none;
+        margin-bottom: 9px;
+      }
+      .cinput:focus {
+        border-color: var(--sage);
+      }
+      .savebtn {
+        padding: 9px 18px;
+        background: var(--navy);
+        color: var(--cream);
+        border: none;
+        border-radius: 50px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .savebtn:hover {
+        background: var(--sage);
+      }
+      .savedok {
+        font-size: 10px;
+        color: var(--green);
+        font-weight: 700;
+        margin-left: 10px;
+        display: none;
+      }
+      .preview {
+        background: var(--navy);
+        color: var(--gold);
+        font-size: 11px;
+        font-weight: 700;
+        padding: 9px 12px;
+        border-radius: 8px;
+        letter-spacing: 1px;
+        margin-bottom: 9px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .nrow {
+        display: flex;
+        gap: 7px;
+        margin-bottom: 7px;
+        align-items: center;
+      }
+      .nrow input {
+        flex: 1;
+        padding: 8px 10px;
+        background: var(--bg);
+        border: 1.5px solid rgba(47, 65, 86, 0.12);
+        border-radius: 8px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 11px;
+        color: var(--navy);
+        outline: none;
+      }
+      .nrow input:focus {
+        border-color: var(--sage);
+      }
+      .ndel {
+        background: none;
+        border: none;
+        color: var(--red);
+        cursor: pointer;
+        font-size: 15px;
+        padding: 4px;
+      }
+      .nadd {
+        padding: 7px 14px;
+        background: rgba(100, 123, 107, 0.1);
+        color: var(--sage);
+        border: 1.5px solid var(--sage);
+        border-radius: 50px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        cursor: pointer;
+        margin-bottom: 9px;
+      }
+      .exprow {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-top: 6px;
+      }
+      .expbtn {
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .expcsv {
+        background: rgba(100, 123, 107, 0.1);
+        color: var(--sage);
+        border: 1.5px solid var(--sage);
+      }
+      .expcsv:hover {
+        background: var(--sage);
+        color: white;
+      }
+      .expjson {
+        background: rgba(47, 65, 86, 0.07);
+        color: var(--navy);
+        border: 1.5px solid var(--navy);
+      }
+      .expjson:hover {
+        background: var(--navy);
+        color: white;
+      }
+
+      /* ANALYTICS */
+      .agrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .achart {
+        background: white;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 2px 10px rgba(47, 65, 86, 0.07);
+      }
+      .achart.full {
+        grid-column: 1 / -1;
+      }
+      .atitle {
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin-bottom: 14px;
+      }
+      .atitle i {
+        color: var(--gold);
+        margin-right: 6px;
+      }
+      .bignums {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+      .bignum {
+        text-align: center;
+        padding: 14px;
+        background: rgba(47, 65, 86, 0.04);
+        border-radius: 10px;
+      }
+      .bignum .n {
+        font-size: 26px;
+        font-weight: 900;
+        color: var(--navy);
+      }
+      .bignum .l {
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .barchart {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .brow {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .blabel {
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--muted);
+        width: 110px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .btrack {
+        flex: 1;
+        background: rgba(47, 65, 86, 0.06);
+        border-radius: 50px;
+        height: 20px;
+      }
+      .bfill {
+        height: 100%;
+        border-radius: 50px;
+        background: linear-gradient(90deg, var(--sage), var(--gold));
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 7px;
+      }
+      .bfill span {
+        font-size: 9px;
+        font-weight: 900;
+        color: white;
+      }
+      .donutwrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .legitem {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        color: var(--navy);
+        font-weight: 700;
+      }
+      .legdot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 500px) {
+        .statsbar {
+          grid-template-columns: repeat(2, 1fr);
+          padding: 10px 12px;
+          gap: 8px;
+        }
+        .statsbar .scard:last-child {
+          grid-column: 1 / -1;
+        }
+        .cgrid {
+          grid-template-columns: 1fr;
+        }
+        .ccard.full {
+          grid-column: 1;
+        }
+        .agrid {
+          grid-template-columns: 1fr;
+        }
+        .achart.full {
+          grid-column: 1;
+        }
+        .aheader {
+          padding: 10px 14px;
+        }
+        .aheader img {
+          width: 44px;
+          height: 44px;
+        }
+        .aheader h1 {
+          font-size: 10px;
+          letter-spacing: 1.5px;
+        }
+        .aheader span {
+          font-size: 8px;
+        }
+        #logoutBtn {
+          font-size: 9px;
+          padding: 6px 10px;
+        }
+        .tabbar {
+          padding: 0 4px;
+          gap: 0;
+        }
+        .tbtn {
+          padding: 10px 8px;
+          font-size: 8px;
+          letter-spacing: 0.5px;
+        }
+        .tbtn i {
+          display: none;
+        }
+        .abody {
+          padding: 12px;
+        }
+        .filters {
+          flex-direction: column;
+          gap: 6px;
+        }
+        .finput, .fsel, .fclear {
+          width: 100%;
+          min-width: unset;
+        }
+        .ecard {
+          padding: 12px;
+        }
+        .ename {
+          font-size: 12px;
+        }
+        .eacts {
+          gap: 5px;
+        }
+        .abtn {
+          padding: 5px 9px;
+          font-size: 8px;
+        }
+        .exprow {
+          flex-direction: column;
+        }
+        .expbtn {
+          width: 100%;
+          justify-content: center;
+        }
+        .blabel {
+          width: 80px;
+          font-size: 8px;
+        }
+        .bignums {
+          grid-template-columns: 1fr 1fr;
+        }
+        .login-box {
+          padding: 20px 16px;
+        }
+        .cgrid .ccard,
+        .cgrid .ccard.full {
+          padding: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loginScreen">
+      <img id="loginLogo" src="" alt="Logo" />
+      <h2>Admin Panel</h2>
+      <p>Pastor Tony Osborn Ministries</p>
+      <div class="login-box">
+        <div class="lf">
+          <label>Username</label
+          ><input type="text" id="lu" placeholder="Username" />
+        </div>
+        <div class="lf">
+          <label>Password</label
+          ><input type="password" id="lp" placeholder="Password" />
+        </div>
+        <button id="loginBtn">Sign In</button>
+        <div id="loginErr">Invalid username or password</div>
+      </div>
+    </div>
+
+    <div id="adminWrap">
+      <div class="aheader">
+        <div class="aheader-left">
+          <img id="headerLogo" src="" alt="Logo" />
+          <div>
+            <h1>Admin Panel</h1>
+            <span id="userLabel">Welcome</span>
+          </div>
+        </div>
+        <button id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+
+      <div class="tabbar">
+        <button class="tbtn active" data-tab="testimonies">
+          <i class="fas fa-star"></i> Testimonies
+          <span class="badge" id="tbadge">0</span>
+        </button>
+        <button class="tbtn" data-tab="prayers">
+          <i class="fas fa-praying-hands"></i> Prayers
+          <span class="badge s" id="pbadge">0</span>
+        </button>
+        <button class="tbtn" data-tab="volunteers">
+          <i class="fas fa-hands-helping"></i> Volunteers
+          <span class="badge" id="vbadge" style="background: var(--sage)"
+            >0</span
+          >
+        </button>
+        <button class="tbtn" data-tab="controls">
+          <i class="fas fa-sliders-h"></i> Site Controls
+        </button>
+        <button class="tbtn" data-tab="analytics">
+          <i class="fas fa-chart-bar"></i> Analytics
+        </button>
+      </div>
+
+      <div class="statsbar" style="grid-template-columns: repeat(5, 1fr)">
+        <div class="scard">
+          <div class="n" id="stTotal">0</div>
+          <div class="l">Total</div>
+        </div>
+        <div class="scard">
+          <div class="n" id="stToday">0</div>
+          <div class="l">Today</div>
+        </div>
+        <div class="scard">
+          <div class="n" id="stPending">0</div>
+          <div class="l">Pending</div>
+        </div>
+        <div class="scard">
+          <div class="n" id="stDone">0</div>
+          <div class="l">Attended</div>
+        </div>
+        <div class="scard">
+          <div class="n" id="stVol">0</div>
+          <div class="l">Volunteers</div>
+        </div>
+      </div>
+
+      <div class="abody">
+        <div class="tpanel active" id="panel-testimonies">
+          <div class="filters">
+            <input
+              class="finput"
+              type="text"
+              id="tsearch"
+              placeholder="Search name, category..."
+            />
+            <select class="fsel" id="tcat">
+              <option value="">All Categories</option>
+              <option>Health &amp; Healing</option>
+              <option>Family &amp; Relationships</option>
+              <option>Financial Breakthrough</option>
+              <option>Salvation</option>
+              <option>Career &amp; Purpose</option>
+              <option>Change of Character</option>
+              <option>Marriage</option>
+              <option>Children &amp; Parenting</option>
+              <option>Mental &amp; Emotional Wellbeing</option>
+              <option>Spiritual Growth</option>
+              <option>Other</option>
+            </select>
+            <select class="fsel" id="tstat">
+              <option value="">All</option>
+              <option value="new">New</option>
+              <option value="done">Attended</option>
+            </select>
+            <button class="fclear" onclick="clearF('t')">Clear</button>
+          </div>
+          <div id="tlist"></div>
+        </div>
+
+        <div class="tpanel" id="panel-prayers">
+          <div class="filters">
+            <input
+              class="finput"
+              type="text"
+              id="psearch"
+              placeholder="Search name, category..."
+            />
+            <select class="fsel" id="pcat">
+              <option value="">All Categories</option>
+              <option>Health &amp; Healing</option>
+              <option>Family &amp; Relationships</option>
+              <option>Financial Breakthrough</option>
+              <option>Salvation</option>
+              <option>Career &amp; Purpose</option>
+              <option>Change of Character</option>
+              <option>Marriage</option>
+              <option>Children &amp; Parenting</option>
+              <option>Mental &amp; Emotional Wellbeing</option>
+              <option>Spiritual Growth</option>
+              <option>Other</option>
+            </select>
+            <select class="fsel" id="pstat">
+              <option value="">All</option>
+              <option value="new">New</option>
+              <option value="done">Attended</option>
+            </select>
+            <button class="fclear" onclick="clearF('p')">Clear</button>
+          </div>
+          <div id="plist"></div>
+        </div>
+
+        <div class="tpanel" id="panel-volunteers">
+          <div class="filters">
+            <input
+              class="finput"
+              type="text"
+              id="vsearch"
+              placeholder="Search name, ministry..."
+            />
+            <select class="fsel" id="vmin">
+              <option value="">All Ministry Areas</option>
+              <option>Worship &amp; Music</option>
+              <option>Ushering &amp; Protocol</option>
+              <option>Children &amp; Youth Ministry</option>
+              <option>Media &amp; Tech</option>
+              <option>Hospitality &amp; Events</option>
+              <option>Prayer Team</option>
+              <option>Outreach &amp; Evangelism</option>
+              <option>Administration</option>
+              <option>Counselling &amp; Care</option>
+              <option>Creative Arts</option>
+              <option>Other</option>
+            </select>
+            <select class="fsel" id="vstat">
+              <option value="">All</option>
+              <option value="new">New</option>
+              <option value="done">Contacted</option>
+            </select>
+            <button class="fclear" onclick="clearF('v')">Clear</button>
+          </div>
+          <div id="vlist"></div>
+        </div>
+
+        <div class="tpanel" id="panel-controls">
+          <div class="cgrid">
+            <div
+              class="ccard full"
+              style="
+                background: rgba(100, 123, 107, 0.08);
+                border: 1.5px solid rgba(100, 123, 107, 0.25);
+              "
+            >
+              <div class="ctitle" style="color: var(--sage)">
+                <i class="fas fa-link"></i>Live Site Sync
+              </div>
+              <div class="cdesc">
+                All form submissions (Testimonies, Prayers, Volunteers) are sent directly to Firebase in real-time and appear here instantly. Settings saved here (signature, theme, news) are also pushed to Firebase and update the main site live — no refresh needed.
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: 8px;
+                  flex-wrap: wrap;
+                  margin-top: 10px;
+                "
+              >
+                <button
+                  class="savebtn"
+                  style="background: var(--sage)"
+                  onclick="window.open('index.html', '_blank')"
+                >
+                  <i class="fas fa-external-link-alt"></i> Open Main Site
+                </button>
+                <button
+                  class="savebtn"
+                  style="background: var(--navy)"
+                  onclick="window.open('index.html', '_blank')"
+                >
+                  <i class="fas fa-sync-alt"></i> Open &amp; Refresh
+                </button>
+              </div>
+            </div>
+
+            <div class="ccard">
+              <div class="ctitle">
+                <i class="fas fa-pen-nib"></i>Signature Text
+              </div>
+              <div class="cdesc">
+                The year text shown at the center of the home screen.
+              </div>
+              <input
+                class="cinput"
+                type="text"
+                id="sigInput"
+                placeholder="e.g. 2026 - Year of Strange Favor"
+              />
+              <div class="preview" id="sigPreview">-</div>
+              <button class="savebtn" id="saveSigBtn">Save</button>
+              <span class="savedok" id="sigOk">Saved!</span>
+            </div>
+
+            <div class="ccard">
+              <div class="ctitle"><i class="fas fa-palette"></i>Site Theme</div>
+              <div class="cdesc">Override the automatic seasonal theme.</div>
+              <select class="cinput" id="themeInput">
+                <option value="">Auto (by date)</option>
+                <option value="default">Default</option>
+                <option value="christmas">Christmas</option>
+                <option value="newyear">New Year</option>
+                <option value="easter">Easter</option>
+              </select>
+              <button class="savebtn" id="saveThemeBtn">Apply</button>
+              <span class="savedok" id="themeOk">Applied!</span>
+            </div>
+
+            <div class="ccard full">
+              <div class="ctitle">
+                <i class="fas fa-newspaper"></i>News Ticker
+              </div>
+              <div class="cdesc">
+                Edit scrolling news items. Each row is one announcement.
+              </div>
+              <div id="newsRows"></div>
+              <button class="nadd" id="addNewsBtn">
+                <i class="fas fa-plus"></i> Add Item
+              </button>
+              <div class="preview" id="newsPreview">Preview...</div>
+              <button class="savebtn" id="saveNewsBtn">Save News</button>
+              <span class="savedok" id="newsOk"
+                >Saved - refresh main site to see changes</span
+              >
+            </div>
+
+            <div class="ccard full">
+              <div class="ctitle">
+                <i class="fas fa-download"></i>Export Data
+              </div>
+              <div class="cdesc">Download all submissions as CSV or JSON.</div>
+              <div class="exprow">
+                <button class="expbtn expcsv" id="expTcsv">
+                  <i class="fas fa-file-csv"></i> Testimonies CSV
+                </button>
+                <button class="expbtn expcsv" id="expPcsv">
+                  <i class="fas fa-file-csv"></i> Prayers CSV
+                </button>
+                <button class="expbtn expcsv" id="expVcsv">
+                  <i class="fas fa-file-csv"></i> Volunteers CSV
+                </button>
+                <button class="expbtn expjson" id="expTjson">
+                  <i class="fas fa-file-code"></i> Testimonies JSON
+                </button>
+                <button class="expbtn expjson" id="expPjson">
+                  <i class="fas fa-file-code"></i> Prayers JSON
+                </button>
+                <button class="expbtn expjson" id="expVjson">
+                  <i class="fas fa-file-code"></i> Volunteers JSON
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tpanel" id="panel-analytics">
+          <div class="agrid">
+            <div class="achart">
+              <div class="atitle">
+                <i class="fas fa-layer-group"></i>Overview
+              </div>
+              <div class="bignums" id="anOverview"></div>
+            </div>
+            <div class="achart">
+              <div class="atitle">
+                <i class="fas fa-chart-pie"></i>Breakdown
+              </div>
+              <div class="donutwrap">
+                <canvas id="donut" width="130" height="130"></canvas>
+                <div id="donutLeg"></div>
+              </div>
+            </div>
+            <div class="achart full">
+              <div class="atitle">
+                <i class="fas fa-tags"></i>Top Testimony Categories
+              </div>
+              <div class="barchart" id="anTcat"></div>
+            </div>
+            <div class="achart full">
+              <div class="atitle">
+                <i class="fas fa-tags"></i>Top Prayer Categories
+              </div>
+              <div class="barchart" id="anPcat"></div>
+            </div>
+            <div class="achart full">
+              <div class="atitle">
+                <i class="fas fa-globe-africa"></i>Top Countries
+              </div>
+              <div class="barchart" id="anCountry"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var SVG_B64 =
+          "PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTc5MC4wMDAwMDBwdCIgaGVpZ2h0PSIxODkwLjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTc5MC4wMDAwMDAgMTg5MC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KCjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDE4OTAuMDAwMDAwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIgpmaWxsPSIjMDAwMDAwIiBzdHJva2U9Im5vbmUiPgo8cGF0aCBkPSJNNzkwNyAxMTgwOCBjLTIzIC0yMyAtMjMxIC00MDYgLTM3NCAtNjg4IGwtNzggLTE1NSAtNjgwIC02IGMtMzc0Ci00IC04NjcgLTEyIC0xMDk1IC0xOSAtNDUyIC0xMyAtNDUwIC0xMyAtNDUwIC03MCAwIC01NiAtMjkgLTU1IDc0OCAtMzYgODE4CjE5IDE0MTIgMjEgMTQxMiA2IDAgLTYgLTE4IC00NyAtNDEgLTkxIC01MyAtMTA2IC0xNTIgLTMyMCAtMjUxIC01NDQgLTM3OAotODUzIC02ODEgLTE2ODcgLTkzMiAtMjU2NSAtNTggLTIwMiAtNjYgLTIzMSAtMTE1IC00MTUgLTI0IC05MCAtMTI4IC01MTAKLTE0NiAtNTkxIC02IC0yOCAyMSAtNjQgNDkgLTY0IDI0IDAgNTYgMjggNTYgNDkgMCAzNSAxNzcgNzE4IDI2NCAxMDE3IDEwMwozNTYgMTA1IDM2MiAyNTEgNzk5IDIxMSA2MzQgNDUyIDEyNDkgNzMwIDE4NjAgOTIgMjAzIDI0NSA1MjUgMjU4IDU0MyA4IDEwCjEyNiAxMiA1NjQgMTIgNDIxIC0xIDU1OCAyIDU2OSAxMSAyMyAxOSAxNCA3MSAtMTYgODYgLTE5IDEwIC0xNDUgMTMgLTUzMiAxMwotMzA0IDAgLTUwOSA0IC01MTMgOSAtNiAxMSA4OSAxOTggMjgyIDU1NCA2OCAxMjYgMTIzIDIzOSAxMjMgMjUyIDAgMjIgLTMyCjU1IC01MyA1NSAtNCAwIC0xOCAtMTAgLTMwIC0yMnoiLz4KPHBhdGggZD0iTTc3MTAgMTAxNTEgbDAgLTM4MSA4NSAwIDg1IDAgMCAxMDQgMCAxMDQgMTM4IDQgYzExNiAzIDE0NSA3IDE4OAoyNyA5OSA0NCAxNDcgMTIyIDE0OCAyNDAgMSAxMjcgLTU2IDIxNiAtMTY2IDI1OCAtMzMgMTMgLTkyIDE3IC0yNjAgMjEgbC0yMTgKNCAwIC0zODF6IG0zOTMgMjA4IGM5NiAtMjYgMTA0IC0xNzYgMTIgLTIxNSAtMjIgLTkgLTcxIC0xNCAtMTM1IC0xNCBsLTEwMCAwCjAgMTIwIDAgMTIwIDkzIDAgYzUwIDAgMTA5IC01IDEzMCAtMTF6Ii8+CjxwYXRoIGQ9Ik05Njc1IDEwNDQzIGMtMTYgLTIgLTQ1IC02IC02MiAtOSBsLTMzIC01IDAgLTY0IDAgLTY1IC00NSAwIC00NSAwCjAgLTcwIDAgLTcwIDQ0IDAgNDQgMCA0IC0xMzcgYzQgLTE0NiAxMyAtMTc3IDYwIC0yMTkgNDcgLTQzIDEyNyAtNTUgMjE0IC0zMwoyNSA3IDQ4IDE3IDUwIDIzIDggMjEgLTMzIDEyMSAtNDcgMTE4IC04IC0yIC0yOSAtNCAtNDggLTUgLTUyIC0yIC02MSAxOSAtNjEKMTQ1IGwwIDEwOCA2NSAwIDY1IDAgMCA3MCAwIDcwIC02NSAwIC02NSAwIDAgNzUgYzAgODMgNSA3OCAtNzUgNjh6Ii8+CjxwYXRoIGQ9Ik04NTMyIDEwMjkyIGMtMTA1IC0zOCAtMTY1IC0xMzEgLTE2NiAtMjU3IC0xIC05NiAyMyAtMTUzIDg0IC0yMDgKNTIgLTQ3IDEwNyAtNjcgMTc3IC02NyA0NSAxIDEwNyAyMiAxMzIgNDQgMjUgMjMgNDEgMjAgNDEgLTkgMCAtMjQgMiAtMjUgNzUKLTI1IGw3NSAwIDAgMjY1IDAgMjY2IC03MiAtMyBjLTcxIC0zIC03MyAtNCAtNzYgLTMwIC0zIC0yOCAtMTYgLTM2IC0yNyAtMTgKLTEzIDIxIC04NSA1MCAtMTM3IDU1IC0zOCA0IC02OCAwIC0xMDYgLTEzeiBtMjIwIC0xNzEgYzIzIC0yNiAyOCAtNDAgMjggLTg1CjAgLTQ0IC01IC02MCAtMjYgLTg1IC00NyAtNTYgLTEzMyAtNjEgLTE4NCAtMTAgLTU1IDU1IC01MiAxMzggNyAxODkgMzMgMzAKNDEgMzIgOTEgMjggNDcgLTQgNjAgLTEwIDg0IC0zN3oiLz4KPHBhdGggZD0iTTkxNzMgMTAzMDAgYy03NiAtMTYgLTEzMSAtNTYgLTE1MiAtMTEzIC0xNiAtNDEgLTE0IC02NSAxMCAtMTEzIDI2Ci01NCA5NCAtODkgMTkxIC05OSA3OCAtOCAxMDkgLTI1IDkyIC01MiAtMTYgLTI1IC0xNTAgLTI1IC0yMTMgMCAtNDkgMjAgLTQ3CjIxIC04NSAtNDUgbC0yNiAtNDcgNDggLTI1IGM5OCAtNDkgMjQ1IC01OCAzNDAgLTIwIDIzIDkgNTYgMzIgNzMgNTIgMjkgMzMKMzEgMzkgMjcgOTggLTYgOTcgLTUzIDEzNCAtMTk5IDE1NiAtNTkgOSAtODUgMTggLTkzIDMxIC0yNyA0NCA3NyA2MyAxNzAgMzEKMzkgLTEzIDQ5IC0xNCA1NSAtMiA1IDcgMjAgMzIgMzQgNTYgbDI2IDQyIC00NSAyMSBjLTc4IDM0IC0xNzEgNDUgLTI1MyAyOXoiLz4KPHBhdGggZD0iTTEwMTExIDEwMjk1IGMtMTQxIC00MCAtMjExIC0xNDEgLTE5OSAtMjg4IDkgLTEwNSA1OCAtMTc2IDE1MiAtMjE4CjEzNSAtNjAgMzEyIC0xOSAzODYgODggNDUgNjYgNTUgMTg4IDIxIDI3NSAtMTcgNDUgLTc4IDEwNCAtMTI5IDEyNiAtNjcgMjkKLTE2MyAzNiAtMjMxIDE3eiBtMTY4IC0xNjEgYzgwIC02NyA0NyAtMjEyIC01MSAtMjI2IC00NSAtNyAtOTAgNyAtMTE3IDM2Ci0yOSAzMSAtMzkgMTAzIC0yMSAxNDcgMjkgNjggMTMxIDkyIDE4OSA0M3oiLz4KPHBhdGggZD0iTTEwNzk0IDEwMzAwIGMtMTYgLTUgLTQxIC0yMSAtNTQgLTM1IC0zMCAtMzIgLTM4IC0zMiAtNDIgMyAtMyAyNwotNCAyNyAtNzYgMjcgbC03MyAwIC0yIC0yNjMgLTIgLTI2MiA4OCAwIDg3IDAgMCAxNjEgMCAxNjEgMzAgMzAgYzI4IDI3IDM1CjI5IDgzIDI2IDI4IC0yIDYwIC04IDY5IC0xMiAxNCAtNiAyMyA0IDQ4IDU0IDE3IDMzIDI4IDY1IDI1IDcwIC0yMCAzMyAtMTI3CjU2IC0xODEgNDB6Ii8+CjxwYXRoIGQ9Ik05NDI4IDk1NzEgYy03NCAtMjQgLTExOSAtNTMgLTE2NyAtMTA4IC0xMjMgLTEzOSAtMTE2IC0zOTcgMTQgLTUyNwoxNTcgLTE1NyA0NjUgLTE1MyA2MTMgOCA2NCA2OSA4NCAxMjQgOTAgMjM3IDkgMjAwIC03NCAzMzIgLTI0NiAzODggLTgxIDI3Ci0yMjIgMjggLTMwNCAyeiBtMjUwIC0xNTYgYzgyIC0zNSAxMjYgLTEwNiAxMjcgLTIwNSAwIC0xMjYgLTc2IC0yMTQgLTE5NgotMjI3IC0xMDYgLTExIC0xODggMzAgLTIzMSAxMTYgLTYwIDExNyAtMjAgMjUzIDkxIDMxMSA0NiAyNCAxNTYgMjcgMjA5IDV6Ii8+CjxwYXRoIGQ9Ik0xMDU1MCA5NTg4IGMwIC0yIC0xIC0xNzMgLTMgLTM4MSBsLTIgLTM3NyA3MyAwIGM3MiAwIDczIDAgNzggMjkKbDYgMjkgNTEgLTMyIGM0NSAtMjggNTggLTMxIDEyNiAtMzEgMTE0IDEgMTg1IDQ2IDIzMCAxNDUgMzAgNjYgMjkgMTg4IC0zCjI1NiAtNTkgMTI4IC0yMTggMTc4IC0zNDMgMTA5IGwtNDIgLTIzIC0zIDEzNiAtMyAxMzcgLTgyIDMgYy00NiAyIC04MyAyIC04MwoweiBtMzY5IC0zOTQgYzQ1IC0zOCA1OCAtOTIgMzcgLTE0OSAtMjEgLTU0IC01NSAtNzUgLTEyMCAtNzUgLTExNSAwIC0xNjUKMTQ5IC03NSAyMjQgNDMgMzYgMTE1IDM2IDE1OCAweiIvPgo8cGF0aCBkPSJNODAyMiA5MjY1IGMtMTE3IC0xMTggLTIxNSAtMjE1IC0yMTcgLTIxNSAtMTAgMCA0OSAxNDEgMTA2IDI1MyA0OAo5NiA1NyAxMjEgNDkgMTM3IC0xOCAzMyAtNDcgMjQgLTc3IC0yMiAtNzUgLTEyMCAtMTg1IC0zOTggLTIwMCAtNTA2IC01IC0zNgotMyAtNDggMTEgLTU4IDEwIC03IDI0IC0xMCAzMiAtNyA3IDIgMTA4IDEwNiAyMjQgMjI5IDExNiAxMjMgMjE1IDIyNCAyMTkKMjI0IDUgMCAtNSAtNDYgLTIxIC0xMDIgLTE2IC01NyAtMzEgLTEzNyAtMzQgLTE3OCAtNiAtNjggLTQgLTc4IDE4IC0xMTAgNDEKLTYwIDEwMyAtNTEgMTg5IDI3IDQwIDM2IDQxIDM2IDY5IDIwIDM1IC0yMSA3NiAtMjIgMTE0IC0yIDQ0IDIzIDE1OCAxMTkgMjU0CjIxMyA0NyA0NSA4NiA4MSA4OCA3OSAyIC0xIC0yMCAtNzIgLTQ5IC0xNTYgbC01MiAtMTU0IC0xODUgLTE1NiBjLTUyMyAtNDQxCi04ODggLTg5NCAtOTU1IC0xMTg2IC0yMiAtOTMgLTE0IC0xNDQgMjkgLTE5MCAzMCAtMzEgMzkgLTM1IDg0IC0zNSA5MiAwIDE4Mwo1MyAzMjEgMTg1IDI0OSAyMzkgNTAwIDY1NiA3MDkgMTE3NyA2NiAxNjYgNTUgMTU0IDI5MCAzMjUgOTQgNjkgMTAyIDc3IDEwMgoxMDggMCAxOSAtNiAzNSAtMTQgMzggLTE0IDYgLTc3IC0zNSAtMTg4IC0xMTkgLTMxIC0yNCAtNjEgLTQ0IC02NiAtNDQgLTUgMAo2IDQ2IDI1IDEwMyA1NCAxNTkgNTYgMjc3IDUgMjc3IC05IDAgLTYzIC01MCAtMTIxIC0xMTIgLTE2NCAtMTczIC0zMTkgLTMwMwotMzM5IC0yODMgLTIwIDE5IDEwMiAyODYgMTQ5IDMyNiA0OCA0MiAyNiAxMDEgLTMyIDg2IC0zMCAtOCAtODkgLTEwMyAtMTQ0Ci0yMzIgLTQyIC0xMDEgLTg0IC0xNTggLTE1OCAtMjE2IC0zNSAtMjggLTUzIC0zNyAtNjEgLTI5IC0xNiAxNiA5IDE2MyA1MwozMDIgNTAgMTY0IDU0IDE4NCAzNSAyMDMgLTkgOCAtMjMgMTUgLTMyIDE1IC05IDAgLTExMyAtOTcgLTIzMCAtMjE1eiBtNjQ4Ci01MTMgYzAgLTE3IC0xMTAgLTI2MyAtMTgzIC00MDcgLTE0NCAtMjg5IC0zMDAgLTUyMyAtNDU2IC02ODcgLTE2MCAtMTY4Ci0yOTQgLTI0MyAtMzQ1IC0xOTIgLTI0IDI0IC0xOSA4MCAxNyAxNzUgMTA0IDI3MSAzOTUgNjI2IDgzNyAxMDE3IDExMCA5NwoxMzAgMTEyIDEzMCA5NHoiLz4KPHBhdGggZD0iTTc0MzUgOTQ0MSBjLTExMSAtNDAgLTE2MCAtODUgLTIxOCAtMTk2IC0yNSAtNDkgLTMxIC03NiAtMzUgLTE0MgotNCAtNzUgLTIgLTg4IDIzIC0xMzggNDcgLTk3IDEzNSAtMTQwIDIzNyAtMTE3IDIzMyA1NCAzNjcgNDEyIDIwOCA1NTYgLTYzCjU2IC0xMzAgNjggLTIxNSAzN3ogbTE1MyAtODcgYzM0IC0yNCA1MiAtNjggNTIgLTEyOCAwIC0xNjIgLTE1MCAtMzI1IC0yNzYKLTMwMiAtNDEgOCAtOTAgNjIgLTEwNSAxMTggLTI1IDk2IDUxIDI1MCAxNTAgMzAxIDYzIDMxIDE0MyAzNyAxNzkgMTF6Ii8+CjxwYXRoIGQ9Ik0xMDE4MCA5MzU3IGMtMTAwIC0yOCAtMTUwIC04MyAtMTUwIC0xNjQgMCAtODYgNjMgLTEzNyAxOTEgLTE1NCA0NgotNiA5MCAtMTYgOTcgLTIxIDE3IC0xNCAxNSAtNDUgLTQgLTUyIC0zMiAtMTIgLTEzMCAtNSAtMTg0IDE0IC0zMCAxMCAtNTggMTYKLTYxIDE0IC00IC0yIC0xOSAtMjUgLTMzIC01MCAtMzEgLTU2IC0yNyAtNjQgNTIgLTk1IDg1IC0zMyAyNDggLTMzIDMxNCAtMQo2MCAzMCA5MCA3MSA5NSAxMzEgOSA5NyAtNTUgMTUxIC0yMDUgMTc1IC05OCAxNSAtMTE4IDI5IC04MyA1NyAyOCAyMyA4OCAyNQoxNTYgNCA1NiAtMTYgNjAgLTE0IDk1IDUwIDI5IDUzIDI3IDU1IC01NSA4MCAtNzEgMjIgLTE3MiAyNyAtMjI1IDEyeiIvPgo8cGF0aCBkPSJNMTEzNjEgOTM1NSBjLTE0MSAtNDAgLTIxMSAtMTQxIC0xOTkgLTI4OCA5IC0xMDUgNTcgLTE3NSAxNTMgLTIxOQo3MSAtMzMgMjA5IC0zMyAyNzYgMCA5OCA0OCAxNTAgMTI5IDE1MSAyMzUgMSA4NiAtMTYgMTM3IC02MiAxODkgLTcwIDgwIC0yMDQKMTE1IC0zMTkgODN6IG0xNjggLTE2MSBjNTcgLTQ4IDYyIC0xNDIgOSAtMTk1IC0yOCAtMjggLTUxIC0zNCAtMTA4IC0yOSAtMTA3CjkgLTEzOSAxODIgLTQyIDIzNCA0NCAyNCAxMDYgMjAgMTQxIC0xMHoiLz4KPHBhdGggZD0iTTEyMDQ0IDkzNjAgYy0xNiAtNSAtNDEgLTIxIC01NCAtMzUgLTMwIC0zMiAtMzggLTMyIC00MiAzIC0zIDI2IC01CjI3IC03NSAzMCBsLTczIDMgMCAtMjY2IDAgLTI2NSA4NCAwIDg1IDAgMyAxNjYgMyAxNjYgMjkgMjUgYzI1IDIxIDM3IDI0IDgwCjIxIDI4IC0zIDU4IC04IDY3IC0xMiAxMyAtNiAyNCA1IDQ4IDUxIDE3IDMxIDI5IDYzIDI3IDcwIC0xNCAzNCAtMTI0IDYxCi0xODIgNDN6Ii8+CjxwYXRoIGQ9Ik0xMjUyNSA5MzYxIGMtMzYgLTkgLTc0IC0yOCAtOTcgLTQ5IC0xNyAtMTQgLTE4IC0xMiAtMjQgMTYgbC02IDMyCi03NCAwIC03NCAwIDAgLTI2NSAwIC0yNjUgODQgMCA4NSAwIDMgMTY2IDMgMTY2IDMzIDI5IGMyMyAyMCA0MyAyOSA2OCAyOSA4OAowIDEwNCAtMzggMTA0IC0yNDAgbDAgLTE1MCA4NiAwIDg2IDAgLTQgMTg4IGMtNCAxODQgLTQgMTg4IC0zMyAyNDAgLTE5IDM2Ci00MiA2MSAtNjkgNzcgLTQ1IDI2IC0xMjQgMzggLTE3MSAyNnoiLz4KPC9nPgo8L3N2Zz4K";
+        var logoSrc = "data:image/svg+xml;base64," + SVG_B64;
+
+        var CREDS = {
+          admin: "PTOMinistry2024!",
+          prayerteam: "PrayerTeam2024!",
+          pastor: "PastorTony2024!",
+        };
+        var DEFAULT_NEWS = [
+          "Join us every Sunday for Live Worship - Pastor Tony Osborn Ministries",
+          "Tune in to OsbornsFM - Dar es Salaam 106.9 | Dodoma 91.6 | Mbeya 94.5 | Songwe 94.5 | Iringa 88.0",
+          "The King & The Code - Get your tickets now at thekingandthecode.com",
+          "Osborn Marathon - Coming Soon. Stay tuned!",
+          "2026 - Year of Strange Favor | God is moving!",
+        ];
+
+        function el(id) {
+          return document.getElementById(id);
+        }
+
+        // ── FIREBASE ──
+        var fbDB = null;
+        var fbT = [], fbP = [], fbV = [];
+
+        (function() {
+          var s1 = document.createElement('script');
+          s1.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
+          s1.onload = function() {
+            var s2 = document.createElement('script');
+            s2.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js';
+            s2.onload = function() {
+              var firebaseConfig = {
+                apiKey: "AIzaSyDl15oYPnApvZAuHtqKrQBVrecHCrW5dFI",
+                authDomain: "osborns-ministry.firebaseapp.com",
+                databaseURL: "https://osborns-ministry-default-rtdb.firebaseio.com",
+                projectId: "osborns-ministry",
+                storageBucket: "osborns-ministry.firebasestorage.app",
+                messagingSenderId: "1084108463085",
+                appId: "1:1084108463085:web:5722643667e9422492a5e4"
+              };
+              if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+              fbDB = firebase.database();
+
+              // Real-time listeners
+              fbDB.ref('pto_testimonies').on('value', function(snap) {
+                fbT = snap.val() ? Object.entries(snap.val()).map(function(e){ var d=e[1]; d._fbKey=e[0]; return d; }) : [];
+                renderT(); updateStats();
+              });
+              fbDB.ref('pto_prayers').on('value', function(snap) {
+                fbP = snap.val() ? Object.entries(snap.val()).map(function(e){ var d=e[1]; d._fbKey=e[0]; return d; }) : [];
+                renderP(); updateStats();
+              });
+              fbDB.ref('pto_volunteers').on('value', function(snap) {
+                fbV = snap.val() ? Object.entries(snap.val()).map(function(e){ var d=e[1]; d._fbKey=e[0]; return d; }) : [];
+                renderV(); updateStats();
+              });
+            };
+            document.head.appendChild(s2);
+          };
+          document.head.appendChild(s1);
+        })();
+
+        function getT() { return fbT; }
+        function getP() { return fbP; }
+        function getV() { return fbV; }
+
+        function setT(a) {
+          // Rebuild Firebase from array (used after delete/update)
+          if (!fbDB) return;
+          fbDB.ref('pto_testimonies').set(
+            a.reduce(function(obj,item){ obj[item._fbKey || fbDB.ref('pto_testimonies').push().key] = item; return obj; }, {})
+          );
+        }
+        function setP(a) {
+          if (!fbDB) return;
+          fbDB.ref('pto_prayers').set(
+            a.reduce(function(obj,item){ obj[item._fbKey || fbDB.ref('pto_prayers').push().key] = item; return obj; }, {})
+          );
+        }
+        function setV(a) {
+          if (!fbDB) return;
+          fbDB.ref('pto_volunteers').set(
+            a.reduce(function(obj,item){ obj[item._fbKey || fbDB.ref('pto_volunteers').push().key] = item; return obj; }, {})
+          );
+        }
+
+        function isToday(d) {
+          var x = new Date(d),
+            n = new Date();
+          return (
+            x.getFullYear() === n.getFullYear() &&
+            x.getMonth() === n.getMonth() &&
+            x.getDate() === n.getDate()
+          );
+        }
+
+        function fmtDate(d) {
+          if (!d) return "";
+          return new Date(d).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        }
+
+        function today() {
+          var d = new Date();
+          return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        }
+
+        function updateStats() {
+          var t = getT(),
+            p = getP(),
+            v = getV(),
+            all = t.concat(p);
+          el("stTotal").textContent = all.length;
+          el("stToday").textContent = all.filter(function (x) {
+            return isToday(x.date);
+          }).length;
+          el("stPending").textContent = all.filter(function (x) {
+            return !x.attended;
+          }).length;
+          el("stDone").textContent = all.filter(function (x) {
+            return x.attended;
+          }).length;
+          el("stVol").textContent = v.length;
+          el("tbadge").textContent = t.length;
+          el("pbadge").textContent = p.length;
+          el("vbadge").textContent = v.length;
+        }
+
+        function renderList(data, listId, prefix) {
+          var search = (el(prefix + "search").value || "").toLowerCase();
+          var cat = el(prefix + "cat").value;
+          var stat = el(prefix + "stat").value;
+
+          var items = data.filter(function (e) {
+            var name = (
+              (e.firstName || "") +
+              " " +
+              (e.lastName || "")
+            ).toLowerCase();
+            var msg = (e.message || "").toLowerCase();
+            var c = (e.category || "").toLowerCase();
+            if (
+              search &&
+              !name.includes(search) &&
+              !msg.includes(search) &&
+              !c.includes(search)
+            )
+              return false;
+            if (cat && e.category !== cat) return false;
+            if (stat === "new" && e.attended) return false;
+            if (stat === "done" && !e.attended) return false;
+            return true;
+          });
+
+          items.sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+          });
+
+          var container = el(listId);
+          if (!items.length) {
+            container.innerHTML =
+              '<div class="empty"><i class="fas fa-inbox"></i><p>No entries found</p></div>';
+            return;
+          }
+
+          var html = "";
+          items.forEach(function (e) {
+            var isPray = prefix === "p";
+            var cls =
+              "ecard" + (e.attended ? " done" : "") + (isPray ? " pray" : "");
+            var attendBtn = e.attended
+              ? '<button class="abtn abtn-attended"><i class="fas fa-check-circle"></i> Attended</button>'
+              : '<button class="abtn abtn-attend" onclick="window.markDone(\'' +
+                e.id +
+                "','" +
+                prefix +
+                '\')"><i class="fas fa-check"></i> Mark Attended</button>';
+            var phoneStr =
+              e.phone && e.phone.trim().length > 1
+                ? '<span><i class="fas fa-phone"></i> ' + e.phone + "</span>"
+                : "";
+            var locStr = e.country
+              ? '<span><i class="fas fa-map-marker-alt"></i> ' +
+                (e.city ? e.city + ", " : "") +
+                e.country +
+                "</span>"
+              : "";
+            var emailStr = e.email
+              ? '<span><i class="fas fa-envelope"></i> ' + e.email + "</span>"
+              : "";
+            var catStr = e.category
+              ? '<span class="ecat">' + e.category + "</span>"
+              : "";
+            var doneLabel = e.attended
+              ? ' <span style="color:var(--gold);font-weight:900;font-size:9px;">&#10003; Attended</span>'
+              : "";
+            html += '<div class="' + cls + '">';
+            html +=
+              '<div class="ehead"><div class="ename">' +
+              (e.firstName || "") +
+              " " +
+              (e.lastName || "") +
+              "</div>";
+            html +=
+              '<div class="edate">' +
+              fmtDate(e.date) +
+              doneLabel +
+              "</div></div>";
+            html +=
+              '<div class="emeta">' + emailStr + phoneStr + locStr + "</div>";
+            html += catStr;
+            html +=
+              '<div class="emsg" id="msg-' +
+              e.id +
+              '">' +
+              (e.message || "") +
+              "</div>";
+            html += '<div class="eacts">';
+            html +=
+              '<button class="abtn abtn-read" onclick="window.toggleMsg(\'' +
+              e.id +
+              '\')"><i class="fas fa-expand-alt"></i> Read</button>';
+            html += attendBtn;
+            html +=
+              '<button class="abtn abtn-del" onclick="window.delEntry(\'' +
+              e.id +
+              "','" +
+              prefix +
+              '\')"><i class="fas fa-trash"></i> Delete</button>';
+            html += "</div></div>";
+          });
+          container.innerHTML = html;
+        }
+
+        function renderT() {
+          renderList(getT(), "tlist", "t");
+          updateStats();
+        }
+        function renderP() {
+          renderList(getP(), "plist", "p");
+          updateStats();
+        }
+        function renderV() {
+          var data = getV();
+          var search = (el("vsearch").value || "").toLowerCase();
+          var min = el("vmin").value;
+          var stat = el("vstat").value;
+          var items = data.filter(function (e) {
+            var name = (
+              (e.firstName || "") +
+              " " +
+              (e.lastName || "")
+            ).toLowerCase();
+            var msg = (e.message || "").toLowerCase();
+            var m = (e.ministry || "").toLowerCase();
+            if (
+              search &&
+              !name.includes(search) &&
+              !msg.includes(search) &&
+              !m.includes(search)
+            )
+              return false;
+            if (min && e.ministry !== min) return false;
+            if (stat === "new" && e.contacted) return false;
+            if (stat === "done" && !e.contacted) return false;
+            return true;
+          });
+          items.sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+          });
+          var container = el("vlist");
+          if (!items.length) {
+            container.innerHTML =
+              '<div class="empty"><i class="fas fa-hands-helping"></i><p>No volunteer applications found</p></div>';
+            updateStats();
+            return;
+          }
+          var html = "";
+          items.forEach(function (e) {
+            var cls = "ecard" + (e.contacted ? " done" : "");
+            var contactBtn = e.contacted
+              ? '<button class="abtn abtn-attended"><i class="fas fa-check-circle"></i> Contacted</button>'
+              : '<button class="abtn abtn-attend" onclick="window.markVolContacted(\'' +
+                e.id +
+                '\')"><i class="fas fa-check"></i> Mark Contacted</button>';
+            var phoneStr =
+              e.phone && e.phone.trim().length > 1
+                ? '<span><i class="fas fa-phone"></i> ' + e.phone + "</span>"
+                : "";
+            var locStr = e.country
+              ? '<span><i class="fas fa-map-marker-alt"></i> ' +
+                (e.city ? e.city + ", " : "") +
+                e.country +
+                "</span>"
+              : "";
+            var emailStr = e.email
+              ? '<span><i class="fas fa-envelope"></i> ' + e.email + "</span>"
+              : "";
+            var minStr = e.ministry
+              ? '<span class="ecat" style="background:rgba(100,123,107,0.1);color:var(--sage);">' +
+                e.ministry +
+                "</span>"
+              : "";
+            var ageStr = e.age
+              ? '<span><i class="fas fa-user"></i> ' + e.age + "</span>"
+              : "";
+            var genderStr = e.gender ? "<span>" + e.gender + "</span>" : "";
+            var doneLabel = e.contacted
+              ? ' <span style="color:var(--gold);font-weight:900;font-size:9px;">&#10003; Contacted</span>'
+              : "";
+            var availStr = "";
+            var avails = [];
+            if (e.availSun) avails.push("Sunday");
+            if (e.availWeek) avails.push("Weekdays");
+            if (e.availSat) avails.push("Saturday");
+            if (e.availEvents) avails.push("Events");
+            if (avails.length)
+              availStr =
+                '<span><i class="fas fa-calendar-check"></i> ' +
+                avails.join(", ") +
+                "</span>";
+            html +=
+              '<div class="' + cls + '" style="border-left-color:#647b6b;">';
+            html +=
+              '<div class="ehead"><div class="ename">' +
+              (e.firstName || "") +
+              " " +
+              (e.lastName || "") +
+              "</div>";
+            html +=
+              '<div class="edate">' +
+              fmtDate(e.date) +
+              doneLabel +
+              "</div></div>";
+            html +=
+              '<div class="emeta">' +
+              emailStr +
+              phoneStr +
+              genderStr +
+              ageStr +
+              locStr +
+              availStr +
+              "</div>";
+            html += minStr;
+            html +=
+              '<div class="emsg" id="msg-v-' +
+              e.id +
+              '">' +
+              (e.message || "") +
+              "</div>";
+            html += '<div class="eacts">';
+            html +=
+              '<button class="abtn abtn-read" onclick="window.toggleMsg(\'v-' +
+              e.id +
+              '\')"><i class="fas fa-expand-alt"></i> Read</button>';
+            html += contactBtn;
+            html +=
+              '<button class="abtn abtn-del" onclick="window.delVolEntry(\'' +
+              e.id +
+              '\')"><i class="fas fa-trash"></i> Delete</button>';
+            html += "</div></div>";
+          });
+          container.innerHTML = html;
+          updateStats();
+        }
+
+        window.toggleMsg = function (id) {
+          var m = el("msg-" + id);
+          if (m) m.classList.toggle("open");
+        };
+
+        window.markDone = function (id, prefix) {
+          var arr = prefix === "t" ? getT() : getP();
+          arr.forEach(function (e) {
+            if (e.id === id) e.attended = true;
+          });
+          prefix === "t" ? setT(arr) : setP(arr);
+          prefix === "t" ? renderT() : renderP();
+        };
+
+        window.markVolContacted = function (id) {
+          var arr = getV();
+          arr.forEach(function (e) {
+            if (e.id === id) e.contacted = true;
+          });
+          setV(arr);
+          renderV();
+        };
+
+        window.delEntry = function (id, prefix) {
+          if (!confirm("Delete this entry? This cannot be undone.")) return;
+          var arr = prefix === "t" ? getT() : getP();
+          arr = arr.filter(function (e) {
+            return e.id !== id;
+          });
+          prefix === "t" ? setT(arr) : setP(arr);
+          prefix === "t" ? renderT() : renderP();
+        };
+
+        window.delVolEntry = function (id) {
+          if (
+            !confirm(
+              "Delete this volunteer application? This cannot be undone.",
+            )
+          )
+            return;
+          var arr = getV().filter(function (e) {
+            return e.id !== id;
+          });
+          setV(arr);
+          renderV();
+        };
+
+        function clearF(p) {
+          el(p + "search").value = "";
+          if (p === "v") {
+            el("vmin").selectedIndex = 0;
+            el("vstat").selectedIndex = 0;
+            renderV();
+            return;
+          }
+          el(p + "cat").selectedIndex = 0;
+          el(p + "stat").selectedIndex = 0;
+          p === "t" ? renderT() : renderP();
+        }
+        window.clearF = clearF;
+
+        function switchTab(tab) {
+          document.querySelectorAll(".tbtn").forEach(function (b) {
+            b.classList.remove("active");
+          });
+          document.querySelectorAll(".tpanel").forEach(function (p) {
+            p.classList.remove("active");
+          });
+          document
+            .querySelector('[data-tab="' + tab + '"]')
+            .classList.add("active");
+          el("panel-" + tab).classList.add("active");
+          if (tab === "analytics") renderAnalytics();
+          if (tab === "controls") initControls();
+          if (tab === "volunteers") renderV();
+        }
+
+        function initControls() {
+          var sig =
+            localStorage.getItem("pto_signature") ||
+            "2026 - Year of Strange Favor";
+          el("sigInput").value = sig;
+          el("sigPreview").textContent = sig;
+
+          var theme = localStorage.getItem("pto_theme") || "";
+          el("themeInput").value = theme;
+
+          var news = null;
+          try {
+            news = JSON.parse(localStorage.getItem("pto_news"));
+          } catch (e) {}
+          if (!news || !news.length) news = DEFAULT_NEWS.slice();
+          renderNewsRows(news);
+        }
+
+        function renderNewsRows(items) {
+          var rows = el("newsRows");
+          var html = "";
+          items.forEach(function (item, i) {
+            html += '<div class="nrow">';
+            html +=
+              '<input type="text" value="' +
+              item
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/</g, "&lt;") +
+              '" oninput="window.updateNewsPreview()">';
+            html +=
+              '<button class="ndel" onclick="window.removeNews(' +
+              i +
+              ')"><i class="fas fa-times"></i></button>';
+            html += "</div>";
+          });
+          rows.innerHTML = html;
+          window.updateNewsPreview();
+        }
+
+        function getNewsItems() {
+          return Array.from(el("newsRows").querySelectorAll("input"))
+            .map(function (x) {
+              return x.value;
+            })
+            .filter(Boolean);
+        }
+
+        window.updateNewsPreview = function () {
+          el("newsPreview").textContent = getNewsItems().join("  |  ");
+        };
+
+        window.removeNews = function (i) {
+          var items = getNewsItems();
+          items.splice(i, 1);
+          renderNewsRows(items);
+        };
+
+        function flash(id) {
+          var e = el(id);
+          e.style.display = "inline";
+          setTimeout(function () {
+            e.style.display = "none";
+          }, 2500);
+        }
+
+        function download(content, filename, mime) {
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(new Blob([content], { type: mime }));
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+
+        function exportCSV(type) {
+          var data = type === "testimonies" ? getT() : getP();
+          if (!data.length) {
+            alert("No data to export.");
+            return;
+          }
+          var keys = [
+            "firstName",
+            "lastName",
+            "email",
+            "phone",
+            "category",
+            "country",
+            "city",
+            "message",
+            "date",
+            "attended",
+          ];
+          var rows = [keys.join(",")];
+          data.forEach(function (e) {
+            var row = keys.map(function (k) {
+              var v = String(e[k] === undefined ? "" : e[k]).replace(
+                /"/g,
+                '""',
+              );
+              return '"' + v + '"';
+            });
+            rows.push(row.join(","));
+          });
+          download(rows.join("\n"), type + "_" + today() + ".csv", "text/csv");
+        }
+
+        function exportJSON(type) {
+          var data = type === "testimonies" ? getT() : getP();
+          if (!data.length) {
+            alert("No data to export.");
+            return;
+          }
+          download(
+            JSON.stringify(data, null, 2),
+            type + "_" + today() + ".json",
+            "application/json",
+          );
+        }
+
+        function exportCSVV() {
+          var data = getV();
+          if (!data.length) {
+            alert("No volunteer data to export.");
+            return;
+          }
+          var keys = [
+            "firstName",
+            "lastName",
+            "email",
+            "phone",
+            "gender",
+            "age",
+            "ministry",
+            "country",
+            "city",
+            "message",
+            "availSun",
+            "availWeek",
+            "availSat",
+            "availEvents",
+            "date",
+            "contacted",
+          ];
+          var rows = [keys.join(",")];
+          data.forEach(function (e) {
+            var row = keys.map(function (k) {
+              var v = String(e[k] === undefined ? "" : e[k]).replace(
+                /"/g,
+                '""',
+              );
+              return '"' + v + '"';
+            });
+            rows.push(row.join(","));
+          });
+          download(
+            rows.join("\n"),
+            "volunteers_" + today() + ".csv",
+            "text/csv",
+          );
+        }
+
+        function exportJSONV() {
+          var data = getV();
+          if (!data.length) {
+            alert("No volunteer data to export.");
+            return;
+          }
+          download(
+            JSON.stringify(data, null, 2),
+            "volunteers_" + today() + ".json",
+            "application/json",
+          );
+        }
+
+        function catCount(arr) {
+          var c = {};
+          arr.forEach(function (e) {
+            var k = e.category || "Unknown";
+            c[k] = (c[k] || 0) + 1;
+          });
+          return Object.entries(c)
+            .sort(function (a, b) {
+              return b[1] - a[1];
+            })
+            .slice(0, 6);
+        }
+
+        function countryCount(arr) {
+          var c = {};
+          arr.forEach(function (e) {
+            var k = e.country || "Unknown";
+            c[k] = (c[k] || 0) + 1;
+          });
+          return Object.entries(c)
+            .sort(function (a, b) {
+              return b[1] - a[1];
+            })
+            .slice(0, 7);
+        }
+
+        function renderBar(elId, data) {
+          var container = el(elId);
+          if (!data.length) {
+            container.innerHTML =
+              '<div style="color:var(--muted);font-size:11px;padding:8px;">No data yet</div>';
+            return;
+          }
+          var max = data[0][1];
+          container.innerHTML = data
+            .map(function (d) {
+              var pct = Math.round((d[1] / max) * 100);
+              return (
+                '<div class="brow"><div class="blabel">' +
+                d[0] +
+                '</div><div class="btrack"><div class="bfill" style="width:' +
+                pct +
+                '%"><span>' +
+                d[1] +
+                "</span></div></div></div>"
+              );
+            })
+            .join("");
+        }
+
+        function renderAnalytics() {
+          var t = getT(),
+            p = getP(),
+            v = getV(),
+            all = t.concat(p);
+          el("anOverview").innerHTML =
+            '<div class="bignum"><div class="n">' +
+            t.length +
+            '</div><div class="l">Testimonies</div></div>' +
+            '<div class="bignum"><div class="n">' +
+            p.length +
+            '</div><div class="l">Prayers</div></div>' +
+            '<div class="bignum"><div class="n">' +
+            v.length +
+            '</div><div class="l">Volunteers</div></div>' +
+            '<div class="bignum"><div class="n">' +
+            all.filter(function (x) {
+              return !x.attended;
+            }).length +
+            '</div><div class="l">Pending</div></div>' +
+            '<div class="bignum"><div class="n">' +
+            all.filter(function (x) {
+              return isToday(x.date);
+            }).length +
+            '</div><div class="l">Today</div></div>';
+
+          var canvas = el("donut");
+          var total = t.length + p.length;
+          var ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, 130, 130);
+          if (total > 0) {
+            var angles = [0, (t.length / total) * Math.PI * 2, Math.PI * 2];
+            var colors = ["#647b6b", "#c9a84c"];
+            [0, 1].forEach(function (i) {
+              ctx.beginPath();
+              ctx.moveTo(65, 65);
+              ctx.arc(
+                65,
+                65,
+                52,
+                angles[i] - Math.PI / 2,
+                angles[i + 1] - Math.PI / 2,
+              );
+              ctx.closePath();
+              ctx.fillStyle = colors[i];
+              ctx.fill();
+            });
+            ctx.beginPath();
+            ctx.arc(65, 65, 30, 0, Math.PI * 2);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            ctx.fillStyle = "#2F4156";
+            ctx.font = "bold 15px Montserrat";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(total, 65, 65);
+          }
+          el("donutLeg").innerHTML =
+            '<div class="legitem"><div class="legdot" style="background:#647b6b"></div>Testimonies (' +
+            t.length +
+            ")</div>" +
+            '<div class="legitem" style="margin-top:8px"><div class="legdot" style="background:#c9a84c"></div>Prayers (' +
+            p.length +
+            ")</div>";
+
+          renderBar("anTcat", catCount(t));
+          renderBar("anPcat", catCount(p));
+          renderBar("anCountry", countryCount(all));
+        }
+
+        function initAdmin(username) {
+          el("loginScreen").style.display = "none";
+          el("adminWrap").style.display = "flex";
+          el("userLabel").textContent = "Welcome, " + username;
+          el("loginLogo").src = logoSrc;
+          el("headerLogo").src = logoSrc;
+          renderT();
+          renderP();
+          renderV();
+          updateStats();
+          setInterval(function () {
+            renderT();
+            renderP();
+            renderV();
+            updateStats();
+          }, 15000);
+        }
+
+        el("loginLogo").src = logoSrc;
+
+        el("loginBtn").addEventListener("click", function () {
+          var u = el("lu").value.trim();
+          var pw = el("lp").value;
+          if (CREDS[u] && CREDS[u] === pw) {
+            sessionStorage.setItem("pto_admin", u);
+            initAdmin(u);
+          } else {
+            var err = el("loginErr");
+            err.style.display = "block";
+            setTimeout(function () {
+              err.style.display = "none";
+            }, 3000);
+          }
+        });
+
+        el("lp").addEventListener("keydown", function (e) {
+          if (e.key === "Enter") el("loginBtn").click();
+        });
+        el("lu").addEventListener("keydown", function (e) {
+          if (e.key === "Enter") el("lp").focus();
+        });
+
+        el("logoutBtn").addEventListener("click", function () {
+          sessionStorage.removeItem("pto_admin");
+          location.reload();
+        });
+
+        document.querySelectorAll(".tbtn").forEach(function (b) {
+          b.addEventListener("click", function () {
+            switchTab(b.getAttribute("data-tab"));
+          });
+        });
+
+        document.querySelectorAll(".finput, .fsel").forEach(function (inp) {
+          inp.addEventListener("input", function () {
+            if (el("panel-testimonies").classList.contains("active")) renderT();
+            else if (el("panel-prayers").classList.contains("active"))
+              renderP();
+            else if (el("panel-volunteers").classList.contains("active"))
+              renderV();
+          });
+          inp.addEventListener("change", function () {
+            if (el("panel-testimonies").classList.contains("active")) renderT();
+            else if (el("panel-prayers").classList.contains("active"))
+              renderP();
+            else if (el("panel-volunteers").classList.contains("active"))
+              renderV();
+          });
+        });
+
+        el("saveSigBtn").addEventListener("click", function () {
+          var v = el("sigInput").value.trim();
+          if (!v) return;
+          localStorage.setItem("pto_signature", v);
+          if (fbDB) fbDB.ref('pto_settings/signature').set(v);
+          flash("sigOk");
+        });
+        el("sigInput").addEventListener("input", function () {
+          el("sigPreview").textContent = this.value;
+        });
+
+        el("saveThemeBtn").addEventListener("click", function () {
+          localStorage.setItem("pto_theme", el("themeInput").value);
+          if (fbDB) fbDB.ref('pto_settings/theme').set(el("themeInput").value);
+          flash("themeOk");
+        });
+
+        el("addNewsBtn").addEventListener("click", function () {
+          var items = getNewsItems();
+          items.push("New announcement...");
+          renderNewsRows(items);
+        });
+
+        el("saveNewsBtn").addEventListener("click", function () {
+          var items = getNewsItems();
+          localStorage.setItem("pto_news", JSON.stringify(items));
+          if (fbDB) fbDB.ref('pto_settings/news').set(items);
+          flash("newsOk");
+        });
+
+        el("expTcsv").addEventListener("click", function () {
+          exportCSV("testimonies");
+        });
+        el("expPcsv").addEventListener("click", function () {
+          exportCSV("prayers");
+        });
+        el("expVcsv").addEventListener("click", function () {
+          exportCSVV();
+        });
+        el("expTjson").addEventListener("click", function () {
+          exportJSON("testimonies");
+        });
+        el("expPjson").addEventListener("click", function () {
+          exportJSON("prayers");
+        });
+        el("expVjson").addEventListener("click", function () {
+          exportJSONV();
+        });
+
+        var saved = sessionStorage.getItem("pto_admin");
+        if (saved && CREDS[saved]) initAdmin(saved);
+      })();
+    </script>
+  </body>
+</html>
