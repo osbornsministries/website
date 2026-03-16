@@ -9,6 +9,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script>
+    (function() {
+      var firebaseConfig = {
+        apiKey: "AIzaSyDl15oYPnApvZAuHtqKrQBVrecHCrW5dFI",
+        authDomain: "osborns-ministry.firebaseapp.com",
+        databaseURL: "https://osborns-ministry-default-rtdb.firebaseio.com",
+        projectId: "osborns-ministry",
+        storageBucket: "osborns-ministry.firebasestorage.app",
+        messagingSenderId: "1084108463085",
+        appId: "1:1084108463085:web:5722643667e9422492a5e4"
+      };
+      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      window.firebaseDB = firebase.database();
+    })();
+  </script>
   <style>
     :root {
       --navy: #2F4156;
@@ -607,15 +625,14 @@
     }
 
     @keyframes panelAppear {
-      from {
-        opacity: 0;
-        transform: scale(0.97);
-      }
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
 
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    /* Inner scroll area (alias for panel-content) */
+    .panel-scroll {
+      width: 100%;
+      max-width: 700px;
     }
 
     .panel-close-btn {
@@ -665,7 +682,7 @@
       vertical-align: middle;
     }
 
-    .panel-content {
+    .panel-scroll {
       width: 100%;
       max-width: 700px;
     }
@@ -1034,7 +1051,7 @@
         right: 10px;
       }
 
-      .panel-content {
+      .panel-scroll {
         max-width: 100%;
       }
 
@@ -3636,20 +3653,18 @@
   <!-- BOTTOM NAV (desktop) -->
   <div class="quantum-nav" id="desktopNav">
     <div class="nav-item" onclick="openPanel('testimonies')"><i class="fas fa-star"></i><span>Testimonies</span></div>
-    <div class="nav-item" onclick="openPanel('news')"><i class="fas fa-newspaper"></i><span>News</span></div>
     <div class="nav-item" onclick="openPanel('give')"><i class="fas fa-hand-holding-heart"></i><span>Give</span></div>
-    <div class="nav-item" onclick="location.href='https://store.pastortonyosbornministries.org/'"><i
-        class="fas fa-book-open"></i><span>Store</span></div>
+    <div class="nav-item" onclick="location.href='https://store.pastortonyosbornministries.org/'"><i class="fas fa-book-open"></i><span>Store</span></div>
+    <div class="nav-item" onclick="openPanel('news')"><i class="fas fa-newspaper"></i><span>News</span></div>
     <div class="nav-item" onclick="openPanel('connect')"><i class="fas fa-share-alt"></i><span>Connect</span></div>
   </div>
 
   <!-- BOTTOM NAV (mobile) -->
   <div class="mobile-quantum-nav" id="mobileNav">
     <div class="nav-item" onclick="openPanel('testimonies')"><i class="fas fa-star"></i><span>Testimonies</span></div>
-    <div class="nav-item" onclick="openPanel('news')"><i class="fas fa-newspaper"></i><span>News</span></div>
     <div class="nav-item" onclick="openPanel('give')"><i class="fas fa-hand-holding-heart"></i><span>Give</span></div>
-    <div class="nav-item" onclick="location.href='https://store.pastortonyosbornministries.org/'"><i
-        class="fas fa-book-open"></i><span>Store</span></div>
+    <div class="nav-item" onclick="location.href='https://store.pastortonyosbornministries.org/'"><i class="fas fa-book-open"></i><span>Store</span></div>
+    <div class="nav-item" onclick="openPanel('news')"><i class="fas fa-newspaper"></i><span>News</span></div>
     <div class="nav-item" onclick="openPanel('connect')"><i class="fas fa-share-alt"></i><span>Connect</span></div>
   </div>
 
@@ -3684,46 +3699,46 @@
       <div class="point-content"><i class="fas fa-crown"></i><span>The King<br>&amp;<br>The Code</span></div>
     </div>
     <div class="nav-point" data-point="prayer"
-      style="transform:translate(-50%,-50%) rotate(33deg) translateY(-0px) rotate(-33deg)"
+      style="transform:translate(-50%,-50%) rotate(36deg) translateY(-0px) rotate(-36deg)"
       onclick="openPanel('prayerRequest')">
       <div class="point-content"><i class="fas fa-praying-hands"></i><span>PRAYER<br>REQUEST</span></div>
     </div>
     <div class="nav-point" data-point="volunteer"
-      style="transform:translate(-50%,-50%) rotate(66deg) translateY(-0px) rotate(-66deg)"
+      style="transform:translate(-50%,-50%) rotate(72deg) translateY(-0px) rotate(-72deg)"
       onclick="closeNavigator();openPanel('volunteer')">
       <div class="point-content"><i class="fas fa-hands-helping"></i><span>VOLUN&shy;TEER</span></div>
     </div>
     <div class="nav-point" data-point="media"
-      style="transform:translate(-50%,-50%) rotate(99deg) translateY(-0px) rotate(-99deg)"
+      style="transform:translate(-50%,-50%) rotate(108deg) translateY(-0px) rotate(-108deg)"
       onclick="location.href='https://osbornsexhibition.co.tz/'">
       <div class="point-content"><i class="fas fa-palette"></i><span>OSBORNS<br>EXHIBITIONS</span></div>
     </div>
     <div class="nav-point" data-point="partner"
-      style="transform:translate(-50%,-50%) rotate(132deg) translateY(-0px) rotate(-132deg)" onclick="showComingSoon()">
+      style="transform:translate(-50%,-50%) rotate(144deg) translateY(-0px) rotate(-144deg)" onclick="showComingSoon()">
       <div class="point-content"><i class="fas fa-handshake"></i><span>PARTNER</span></div>
     </div>
     <div class="nav-point" data-point="news"
-      style="transform:translate(-50%,-50%) rotate(165deg) translateY(-0px) rotate(-165deg)"
+      style="transform:translate(-50%,-50%) rotate(180deg) translateY(-0px) rotate(-180deg)"
       onclick="openPanel('news')">
       <div class="point-content"><i class="fas fa-newspaper"></i><span>NEWS</span></div>
     </div>
     <div class="nav-point" data-point="testimonies"
-      style="transform:translate(-50%,-50%) rotate(198deg) translateY(-0px) rotate(-198deg)"
+      style="transform:translate(-50%,-50%) rotate(216deg) translateY(-0px) rotate(-216deg)"
       onclick="openPanel('testimonies')">
       <div class="point-content"><i class="fas fa-star"></i><span>TESTI&shy;MONIES</span></div>
     </div>
     <div class="nav-point" data-point="give"
-      style="transform:translate(-50%,-50%) rotate(231deg) translateY(-0px) rotate(-231deg)"
+      style="transform:translate(-50%,-50%) rotate(252deg) translateY(-0px) rotate(-252deg)"
       onclick="openPanel('give')">
       <div class="point-content"><i class="fas fa-hand-holding-heart"></i><span>GIVE</span></div>
     </div>
     <div class="nav-point" data-point="store"
-      style="transform:translate(-50%,-50%) rotate(264deg) translateY(-0px) rotate(-264deg)"
+      style="transform:translate(-50%,-50%) rotate(288deg) translateY(-0px) rotate(-288deg)"
       onclick="location.href='https://store.pastortonyosbornministries.org/'">
       <div class="point-content"><i class="fas fa-book-open"></i><span>OSBORNS<br>STORE</span></div>
     </div>
     <div class="nav-point" data-point="connect"
-      style="transform:translate(-50%,-50%) rotate(297deg) translateY(-0px) rotate(-297deg)"
+      style="transform:translate(-50%,-50%) rotate(324deg) translateY(-0px) rotate(-324deg)"
       onclick="openPanel('connect')">
       <div class="point-content"><i class="fas fa-share-alt"></i><span>CONNECT</span></div>
     </div>
@@ -3734,16 +3749,18 @@
 
   <div id="coming-soon" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
+    <div class="panel-scroll">
     <div class="coming-soon-wrap">
       <div class="coming-soon-icon"><i class="fas fa-hourglass-half"></i></div>
       <h2>COMING SOON</h2>
       <p>This section is being prepared. Stay tuned.</p>
     </div>
+    </div>
   </div>
 
   <div id="testimonies" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
-    <div class="panel-content">
+    <div class="panel-scroll">
       <div style="text-align:center;padding:12px 0 6px;"><img
           src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTc5MC4wMDAwMDBwdCIgaGVpZ2h0PSIxODkwLjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTc5MC4wMDAwMDAgMTg5MC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KCjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDE4OTAuMDAwMDAwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIgpmaWxsPSIjMDAwMDAwIiBzdHJva2U9Im5vbmUiPgo8cGF0aCBkPSJNNzkwNyAxMTgwOCBjLTIzIC0yMyAtMjMxIC00MDYgLTM3NCAtNjg4IGwtNzggLTE1NSAtNjgwIC02IGMtMzc0Ci00IC04NjcgLTEyIC0xMDk1IC0xOSAtNDUyIC0xMyAtNDUwIC0xMyAtNDUwIC03MCAwIC01NiAtMjkgLTU1IDc0OCAtMzYgODE4CjE5IDE0MTIgMjEgMTQxMiA2IDAgLTYgLTE4IC00NyAtNDEgLTkxIC01MyAtMTA2IC0xNTIgLTMyMCAtMjUxIC01NDQgLTM3OAotODUzIC02ODEgLTE2ODcgLTkzMiAtMjU2NSAtNTggLTIwMiAtNjYgLTIzMSAtMTE1IC00MTUgLTI0IC05MCAtMTI4IC01MTAKLTE0NiAtNTkxIC02IC0yOCAyMSAtNjQgNDkgLTY0IDI0IDAgNTYgMjggNTYgNDkgMCAzNSAxNzcgNzE4IDI2NCAxMDE3IDEwMwozNTYgMTA1IDM2MiAyNTEgNzk5IDIxMSA2MzQgNDUyIDEyNDkgNzMwIDE4NjAgOTIgMjAzIDI0NSA1MjUgMjU4IDU0MyA4IDEwCjEyNiAxMiA1NjQgMTIgNDIxIC0xIDU1OCAyIDU2OSAxMSAyMyAxOSAxNCA3MSAtMTYgODYgLTE5IDEwIC0xNDUgMTMgLTUzMiAxMwotMzA0IDAgLTUwOSA0IC01MTMgOSAtNiAxMSA4OSAxOTggMjgyIDU1NCA2OCAxMjYgMTIzIDIzOSAxMjMgMjUyIDAgMjIgLTMyCjU1IC01MyA1NSAtNCAwIC0xOCAtMTAgLTMwIC0yMnoiLz4KPHBhdGggZD0iTTc3MTAgMTAxNTEgbDAgLTM4MSA4NSAwIDg1IDAgMCAxMDQgMCAxMDQgMTM4IDQgYzExNiAzIDE0NSA3IDE4OAoyNyA5OSA0NCAxNDcgMTIyIDE0OCAyNDAgMSAxMjcgLTU2IDIxNiAtMTY2IDI1OCAtMzMgMTMgLTkyIDE3IC0yNjAgMjEgbC0yMTgKNCAwIC0zODF6IG0zOTMgMjA4IGM5NiAtMjYgMTA0IC0xNzYgMTIgLTIxNSAtMjIgLTkgLTcxIC0xNCAtMTM1IC0xNCBsLTEwMCAwCjAgMTIwIDAgMTIwIDkzIDAgYzUwIDAgMTA5IC01IDEzMCAtMTF6Ii8+CjxwYXRoIGQ9Ik05Njc1IDEwNDQzIGMtMTYgLTIgLTQ1IC02IC02MiAtOSBsLTMzIC01IDAgLTY0IDAgLTY1IC00NSAwIC00NSAwCjAgLTcwIDAgLTcwIDQ0IDAgNDQgMCA0IC0xMzcgYzQgLTE0NiAxMyAtMTc3IDYwIC0yMTkgNDcgLTQzIDEyNyAtNTUgMjE0IC0zMwoyNSA3IDQ4IDE3IDUwIDIzIDggMjEgLTMzIDEyMSAtNDcgMTE4IC04IC0yIC0yOSAtNCAtNDggLTUgLTUyIC0yIC02MSAxOSAtNjEKMTQ1IGwwIDEwOCA2NSAwIDY1IDAgMCA3MCAwIDcwIC02NSAwIC02NSAwIDAgNzUgYzAgODMgNSA3OCAtNzUgNjh6Ii8+CjxwYXRoIGQ9Ik04NTMyIDEwMjkyIGMtMTA1IC0zOCAtMTY1IC0xMzEgLTE2NiAtMjU3IC0xIC05NiAyMyAtMTUzIDg0IC0yMDgKNTIgLTQ3IDEwNyAtNjcgMTc3IC02NyA0NSAxIDEwNyAyMiAxMzIgNDQgMjUgMjMgNDEgMjAgNDEgLTkgMCAtMjQgMiAtMjUgNzUKLTI1IGw3NSAwIDAgMjY1IDAgMjY2IC03MiAtMyBjLTcxIC0zIC03MyAtNCAtNzYgLTMwIC0zIC0yOCAtMTYgLTM2IC0yNyAtMTgKLTEzIDIxIC04NSA1MCAtMTM3IDU1IC0zOCA0IC02OCAwIC0xMDYgLTEzeiBtMjIwIC0xNzEgYzIzIC0yNiAyOCAtNDAgMjggLTg1CjAgLTQ0IC01IC02MCAtMjYgLTg1IC00NyAtNTYgLTEzMyAtNjEgLTE4NCAtMTAgLTU1IDU1IC01MiAxMzggNyAxODkgMzMgMzAKNDEgMzIgOTEgMjggNDcgLTQgNjAgLTEwIDg0IC0zN3oiLz4KPHBhdGggZD0iTTkxNzMgMTAzMDAgYy03NiAtMTYgLTEzMSAtNTYgLTE1MiAtMTEzIC0xNiAtNDEgLTE0IC02NSAxMCAtMTEzIDI2Ci01NCA5NCAtODkgMTkxIC05OSA3OCAtOCAxMDkgLTI1IDkyIC01MiAtMTYgLTI1IC0xNTAgLTI1IC0yMTMgMCAtNDkgMjAgLTQ3CjIxIC04NSAtNDUgbC0yNiAtNDcgNDggLTI1IGM5OCAtNDkgMjQ1IC01OCAzNDAgLTIwIDIzIDkgNTYgMzIgNzMgNTIgMjkgMzMKMzEgMzkgMjcgOTggLTYgOTcgLTUzIDEzNCAtMTk5IDE1NiAtNTkgOSAtODUgMTggLTkzIDMxIC0yNyA0NCA3NyA2MyAxNzAgMzEKMzkgLTEzIDQ5IC0xNCA1NSAtMiA1IDcgMjAgMzIgMzQgNTYgbDI2IDQyIC00NSAyMSBjLTc4IDM0IC0xNzEgNDUgLTI1MyAyOXoiLz4KPHBhdGggZD0iTTEwMTExIDEwMjk1IGMtMTQxIC00MCAtMjExIC0xNDEgLTE5OSAtMjg4IDkgLTEwNSA1OCAtMTc2IDE1MiAtMjE4CjEzNSAtNjAgMzEyIC0xOSAzODYgODggNDUgNjYgNTUgMTg4IDIxIDI3NSAtMTcgNDUgLTc4IDEwNCAtMTI5IDEyNiAtNjcgMjkKLTE2MyAzNiAtMjMxIDE3eiBtMTY4IC0xNjEgYzgwIC02NyA0NyAtMjEyIC01MSAtMjI2IC00NSAtNyAtOTAgNyAtMTE3IDM2Ci0yOSAzMSAtMzkgMTAzIC0yMSAxNDcgMjkgNjggMTMxIDkyIDE4OSA0M3oiLz4KPHBhdGggZD0iTTEwNzk0IDEwMzAwIGMtMTYgLTUgLTQxIC0yMSAtNTQgLTM1IC0zMCAtMzIgLTM4IC0zMiAtNDIgMyAtMyAyNwotNCAyNyAtNzYgMjcgbC03MyAwIC0yIC0yNjMgLTIgLTI2MiA4OCAwIDg3IDAgMCAxNjEgMCAxNjEgMzAgMzAgYzI4IDI3IDM1CjI5IDgzIDI2IDI4IC0yIDYwIC04IDY5IC0xMiAxNCAtNiAyMyA0IDQ4IDU0IDE3IDMzIDI4IDY1IDI1IDcwIC0yMCAzMyAtMTI3CjU2IC0xODEgNDB6Ii8+CjxwYXRoIGQ9Ik05NDI4IDk1NzEgYy03NCAtMjQgLTExOSAtNTMgLTE2NyAtMTA4IC0xMjMgLTEzOSAtMTE2IC0zOTcgMTQgLTUyNwoxNTcgLTE1NyA0NjUgLTE1MyA2MTMgOCA2NCA2OSA4NCAxMjQgOTAgMjM3IDkgMjAwIC03NCAzMzIgLTI0NiAzODggLTgxIDI3Ci0yMjIgMjggLTMwNCAyeiBtMjUwIC0xNTYgYzgyIC0zNSAxMjYgLTEwNiAxMjcgLTIwNSAwIC0xMjYgLTc2IC0yMTQgLTE5NgotMjI3IC0xMDYgLTExIC0xODggMzAgLTIzMSAxMTYgLTYwIDExNyAtMjAgMjUzIDkxIDMxMSA0NiAyNCAxNTYgMjcgMjA5IDV6Ii8+CjxwYXRoIGQ9Ik0xMDU1MCA5NTg4IGMwIC0yIC0xIC0xNzMgLTMgLTM4MSBsLTIgLTM3NyA3MyAwIGM3MiAwIDczIDAgNzggMjkKbDYgMjkgNTEgLTMyIGM0NSAtMjggNTggLTMxIDEyNiAtMzEgMTE0IDEgMTg1IDQ2IDIzMCAxNDUgMzAgNjYgMjkgMTg4IC0zCjI1NiAtNTkgMTI4IC0yMTggMTc4IC0zNDMgMTA5IGwtNDIgLTIzIC0zIDEzNiAtMyAxMzcgLTgyIDMgYy00NiAyIC04MyAyIC04MwoweiBtMzY5IC0zOTQgYzQ1IC0zOCA1OCAtOTIgMzcgLTE0OSAtMjEgLTU0IC01NSAtNzUgLTEyMCAtNzUgLTExNSAwIC0xNjUKMTQ5IC03NSAyMjQgNDMgMzYgMTE1IDM2IDE1OCAweiIvPgo8cGF0aCBkPSJNODAyMiA5MjY1IGMtMTE3IC0xMTggLTIxNSAtMjE1IC0yMTcgLTIxNSAtMTAgMCA0OSAxNDEgMTA2IDI1MyA0OAo5NiA1NyAxMjEgNDkgMTM3IC0xOCAzMyAtNDcgMjQgLTc3IC0yMiAtNzUgLTEyMCAtMTg1IC0zOTggLTIwMCAtNTA2IC01IC0zNgotMyAtNDggMTEgLTU4IDEwIC03IDI0IC0xMCAzMiAtNyA3IDIgMTA4IDEwNiAyMjQgMjI5IDExNiAxMjMgMjE1IDIyNCAyMTkKMjI0IDUgMCAtNSAtNDYgLTIxIC0xMDIgLTE2IC01NyAtMzEgLTEzNyAtMzQgLTE3OCAtNiAtNjggLTQgLTc4IDE4IC0xMTAgNDEKLTYwIDEwMyAtNTEgMTg5IDI3IDQwIDM2IDQxIDM2IDY5IDIwIDM1IC0yMSA3NiAtMjIgMTE0IC0yIDQ0IDIzIDE1OCAxMTkgMjU0CjIxMyA0NyA0NSA4NiA4MSA4OCA3OSAyIC0xIC0yMCAtNzIgLTQ5IC0xNTYgbC01MiAtMTU0IC0xODUgLTE1NiBjLTUyMyAtNDQxCi04ODggLTg5NCAtOTU1IC0xMTg2IC0yMiAtOTMgLTE0IC0xNDQgMjkgLTE5MCAzMCAtMzEgMzkgLTM1IDg0IC0zNSA5MiAwIDE4Mwo1MyAzMjEgMTg1IDI0OSAyMzkgNTAwIDY1NiA3MDkgMTE3NyA2NiAxNjYgNTUgMTU0IDI5MCAzMjUgOTQgNjkgMTAyIDc3IDEwMgoxMDggMCAxOSAtNiAzNSAtMTQgMzggLTE0IDYgLTc3IC0zNSAtMTg4IC0xMTkgLTMxIC0yNCAtNjEgLTQ0IC02NiAtNDQgLTUgMAo2IDQ2IDI1IDEwMyA1NCAxNTkgNTYgMjc3IDUgMjc3IC05IDAgLTYzIC01MCAtMTIxIC0xMTIgLTE2NCAtMTczIC0zMTkgLTMwMwotMzM5IC0yODMgLTIwIDE5IDEwMiAyODYgMTQ5IDMyNiA0OCA0MiAyNiAxMDEgLTMyIDg2IC0zMCAtOCAtODkgLTEwMyAtMTQ0Ci0yMzIgLTQyIC0xMDEgLTg0IC0xNTggLTE1OCAtMjE2IC0zNSAtMjggLTUzIC0zNyAtNjEgLTI5IC0xNiAxNiA5IDE2MyA1MwozMDIgNTAgMTY0IDU0IDE4NCAzNSAyMDMgLTkgOCAtMjMgMTUgLTMyIDE1IC05IDAgLTExMyAtOTcgLTIzMCAtMjE1eiBtNjQ4Ci01MTMgYzAgLTE3IC0xMTAgLTI2MyAtMTgzIC00MDcgLTE0NCAtMjg5IC0zMDAgLTUyMyAtNDU2IC02ODcgLTE2MCAtMTY4Ci0yOTQgLTI0MyAtMzQ1IC0xOTIgLTI0IDI0IC0xOSA4MCAxNyAxNzUgMTA0IDI3MSAzOTUgNjI2IDgzNyAxMDE3IDExMCA5NwoxMzAgMTEyIDEzMCA5NHoiLz4KPHBhdGggZD0iTTc0MzUgOTQ0MSBjLTExMSAtNDAgLTE2MCAtODUgLTIxOCAtMTk2IC0yNSAtNDkgLTMxIC03NiAtMzUgLTE0MgotNCAtNzUgLTIgLTg4IDIzIC0xMzggNDcgLTk3IDEzNSAtMTQwIDIzNyAtMTE3IDIzMyA1NCAzNjcgNDEyIDIwOCA1NTYgLTYzCjU2IC0xMzAgNjggLTIxNSAzN3ogbTE1MyAtODcgYzM0IC0yNCA1MiAtNjggNTIgLTEyOCAwIC0xNjIgLTE1MCAtMzI1IC0yNzYKLTMwMiAtNDEgOCAtOTAgNjIgLTEwNSAxMTggLTI1IDk2IDUxIDI1MCAxNTAgMzAxIDYzIDMxIDE0MyAzNyAxNzkgMTF6Ii8+CjxwYXRoIGQ9Ik0xMDE4MCA5MzU3IGMtMTAwIC0yOCAtMTUwIC04MyAtMTUwIC0xNjQgMCAtODYgNjMgLTEzNyAxOTEgLTE1NCA0NgotNiA5MCAtMTYgOTcgLTIxIDE3IC0xNCAxNSAtNDUgLTQgLTUyIC0zMiAtMTIgLTEzMCAtNSAtMTg0IDE0IC0zMCAxMCAtNTggMTYKLTYxIDE0IC00IC0yIC0xOSAtMjUgLTMzIC01MCAtMzEgLTU2IC0yNyAtNjQgNTIgLTk1IDg1IC0zMyAyNDggLTMzIDMxNCAtMQo2MCAzMCA5MCA3MSA5NSAxMzEgOSA5NyAtNTUgMTUxIC0yMDUgMTc1IC05OCAxNSAtMTE4IDI5IC04MyA1NyAyOCAyMyA4OCAyNQoxNTYgNCA1NiAtMTYgNjAgLTE0IDk1IDUwIDI5IDUzIDI3IDU1IC01NSA4MCAtNzEgMjIgLTE3MiAyNyAtMjI1IDEyeiIvPgo8cGF0aCBkPSJNMTEzNjEgOTM1NSBjLTE0MSAtNDAgLTIxMSAtMTQxIC0xOTkgLTI4OCA5IC0xMDUgNTcgLTE3NSAxNTMgLTIxOQo3MSAtMzMgMjA5IC0zMyAyNzYgMCA5OCA0OCAxNTAgMTI5IDE1MSAyMzUgMSA4NiAtMTYgMTM3IC02MiAxODkgLTcwIDgwIC0yMDQKMTE1IC0zMTkgODN6IG0xNjggLTE2MSBjNTcgLTQ4IDYyIC0xNDIgOSAtMTk1IC0yOCAtMjggLTUxIC0zNCAtMTA4IC0yOSAtMTA3CjkgLTEzOSAxODIgLTQyIDIzNCA0NCAyNCAxMDYgMjAgMTQxIC0xMHoiLz4KPHBhdGggZD0iTTEyMDQ0IDkzNjAgYy0xNiAtNSAtNDEgLTIxIC01NCAtMzUgLTMwIC0zMiAtMzggLTMyIC00MiAzIC0zIDI2IC01CjI3IC03NSAzMCBsLTczIDMgMCAtMjY2IDAgLTI2NSA4NCAwIDg1IDAgMyAxNjYgMyAxNjYgMjkgMjUgYzI1IDIxIDM3IDI0IDgwCjIxIDI4IC0zIDU4IC04IDY3IC0xMiAxMyAtNiAyNCA1IDQ4IDUxIDE3IDMxIDI5IDYzIDI3IDcwIC0xNCAzNCAtMTI0IDYxCi0xODIgNDN6Ii8+CjxwYXRoIGQ9Ik0xMjUyNSA5MzYxIGMtMzYgLTkgLTc0IC0yOCAtOTcgLTQ5IC0xNyAtMTQgLTE4IC0xMiAtMjQgMTYgbC02IDMyCi03NCAwIC03NCAwIDAgLTI2NSAwIC0yNjUgODQgMCA4NSAwIDMgMTY2IDMgMTY2IDMzIDI5IGMyMyAyMCA0MyAyOSA2OCAyOSA4OAowIDEwNCAtMzggMTA0IC0yNDAgbDAgLTE1MCA4NiAwIDg2IDAgLTQgMTg4IGMtNCAxODQgLTQgMTg4IC0zMyAyNDAgLTE5IDM2Ci00MiA2MSAtNjkgNzcgLTQ1IDI2IC0xMjQgMzggLTE3MSAyNnoiLz4KPC9nPgo8L3N2Zz4K"
           style="width:110px;height:110px;object-fit:contain;" alt="Logo"></div>
@@ -3751,20 +3768,16 @@
 
       <div id="tForm" style="padding:0 4px;">
 
+        <!-- Row 1: Full Name | Phone Number -->
         <div class="embed-row">
-          <div class="embed-field"><label class="embed-label">First Name *</label><input class="embed-input" type="text"
-              placeholder="First Name" id="tFirst"></div>
-          <div class="embed-field"><label class="embed-label">Last Name</label><input class="embed-input" type="text"
-              placeholder="Last Name" id="tLast"></div>
-        </div>
-
-        <div class="embed-row">
-          <div class="embed-field"><label class="embed-label">Email Address</label><input class="embed-input"
-              type="email" placeholder="your@email.com" id="tEmail" oninput="validateEmail(this)"></div>
           <div class="embed-field">
-            <label class="embed-label">Phone Number</label>
+            <label class="embed-label" style="font-size:10px;">Full Name *</label>
+            <input class="embed-input" type="text" placeholder="Your full name" id="tFirst">
+          </div>
+          <div class="embed-field">
+            <label class="embed-label" style="font-size:10px;">Phone Number</label>
             <div class="embed-phone">
-              <select class="embed-input embed-cc" id="tPhoneCc">
+              <select class="embed-input embed-cc" id="tPhoneCc" onchange="limitTestimonyPhone(document.getElementById('tPhone'))">
                 <option value="+255">🇹🇿 +255</option>
                 <option value="+254">🇰🇪 +254</option>
                 <option value="+256">🇺🇬 +256</option>
@@ -3784,44 +3797,21 @@
                 <option value="+1-CA">🇨🇦 +1</option>
               </select>
               <input class="embed-input" type="tel" placeholder="700 000 000" id="tPhone" inputmode="numeric"
-                pattern="[0-9]*" style="flex:1;" oninput="detectPhone(this,'tPhoneCc','tCountry')">
+                pattern="[0-9]*" style="flex:1;" oninput="detectPhone(this,'tPhoneCc','tCountry'); limitTestimonyPhone(this)">
             </div>
           </div>
         </div>
 
+        <!-- Row 2: Email Address | Country -->
         <div class="embed-row">
           <div class="embed-field">
-            <label class="embed-label">Gender</label>
-            <select class="embed-input" id="tGender">
-              <option value="" disabled selected>Select</option>
-              <option>Male</option>
-              <option>Female</option>
-            </select>
+            <label class="embed-label" style="font-size:10px;">Email Address</label>
+            <input class="embed-input" type="email" placeholder="your@email.com" id="tEmail" oninput="validateEmail(this)">
           </div>
           <div class="embed-field">
-            <label class="embed-label">Category *</label>
-            <select class="embed-input" id="tCategory">
-              <option value="" disabled selected>Select category</option>
-              <option>Health &amp; Healing</option>
-              <option>Family &amp; Relationships</option>
-              <option>Financial Breakthrough</option>
-              <option>Salvation</option>
-              <option>Career &amp; Purpose</option>
-              <option>Change of Character</option>
-              <option>Marriage</option>
-              <option>Children &amp; Parenting</option>
-              <option>Mental &amp; Emotional Wellbeing</option>
-              <option>Spiritual Growth</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="embed-row">
-          <div class="embed-field">
-            <label class="embed-label">Country</label>
+            <label class="embed-label" style="font-size:10px;">Country</label>
             <select class="embed-input" id="tCountry">
-              <option value="" disabled selected>Suggested after phone entry</option>
+              <option value="" disabled selected>Select country</option>
               <option value="TZ">🇹🇿 Tanzania</option>
               <option value="KE">🇰🇪 Kenya</option>
               <option value="UG">🇺🇬 Uganda</option>
@@ -3842,34 +3832,52 @@
               <option value="OTHER">🌍 Other</option>
             </select>
           </div>
-          <div class="embed-field"><label class="embed-label">City / Area</label><input class="embed-input" type="text"
-              placeholder="e.g. Dar es Salaam" id="tCity"></div>
         </div>
 
+        <!-- Row 3: Category | City/Area -->
+        <div class="embed-row">
+          <div class="embed-field">
+            <label class="embed-label" style="font-size:10px;">Category *</label>
+            <select class="embed-input" id="tCategory">
+              <option value="" disabled selected>Select category</option>
+              <option>Health &amp; Healing</option>
+              <option>Family &amp; Relationships</option>
+              <option>Financial Breakthrough</option>
+              <option>Salvation</option>
+              <option>Career &amp; Purpose</option>
+              <option>Change of Character</option>
+              <option>Marriage</option>
+              <option>Children &amp; Parenting</option>
+              <option>Mental &amp; Emotional Wellbeing</option>
+              <option>Spiritual Growth</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="embed-field">
+            <label class="embed-label" style="font-size:10px;">City / Area</label>
+            <input class="embed-input" type="text" placeholder="e.g. Dar es Salaam" id="tCity">
+          </div>
+        </div>
+
+        <!-- Full-width testimony textarea -->
         <div style="margin-bottom:10px;">
-          <label class="embed-label">What did God do for you? *</label>
+          <label class="embed-label" style="font-size:10px;">What did God do for you? *</label>
           <textarea class="embed-input" id="tMessage" maxlength="2000"
             placeholder="Share how God has moved in your life..." oninput="updateTCount()"
-            style="width:100%;min-height:80px;resize:vertical;line-height:1.5;padding:8px 10px;"></textarea>
+            style="width:100%;min-height:90px;resize:vertical;line-height:1.5;padding:8px 10px;"></textarea>
           <div class="embed-char-counter"><span id="tCount">0</span> / 2000</div>
         </div>
 
         <div style="margin-bottom:10px;">
           <label class="embed-label">Share publicly?</label>
           <div style="display:flex;gap:14px;margin-top:4px;">
-            <label
-              style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--navy);cursor:pointer;"><input
-                type="radio" name="tPublic" value="yes" style="accent-color:var(--sage);"> Yes</label>
-            <label
-              style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--navy);cursor:pointer;"><input
-                type="radio" name="tPublic" value="no" checked style="accent-color:var(--sage);"> No, keep
-              private</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--navy);cursor:pointer;"><input type="radio" name="tPublic" value="yes" style="accent-color:var(--sage);"> Yes</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--navy);cursor:pointer;"><input type="radio" name="tPublic" value="no" checked style="accent-color:var(--sage);"> No, keep private</label>
           </div>
         </div>
 
         <div style="margin-bottom:10px;">
-          <span class="embed-label" style="color:var(--gold);display:block;margin-bottom:6px;">Or Share via Audio /
-            Video</span>
+          <span class="embed-label" style="color:var(--gold);display:block;margin-bottom:6px;">Or Share via Audio / Video <span style="font-size:8px;color:var(--muted);font-weight:600;letter-spacing:0;">(max 1.5 min)</span></span>
           <div style="display:flex;gap:6px;">
             <button class="embed-media-btn" id="tAudioBtn" onclick="tToggleAudio()">
               <i class="fas fa-microphone" id="tAudioIcon"></i><span id="tAudioLbl">Audio</span>
@@ -3884,13 +3892,11 @@
             </label>
           </div>
           <div id="tMediaPreview" style="margin-top:8px;display:none;"></div>
-          <div id="tMediaStatus" style="font-size:10px;color:var(--sage);font-weight:700;margin-top:4px;display:none;">
-          </div>
+          <div id="tMediaStatus" style="font-size:10px;color:var(--sage);font-weight:700;margin-top:4px;display:none;"></div>
         </div>
 
         <button onclick="submitTestimony()"
-          style="width:100%;padding:12px;background:var(--navy);color:var(--cream);border:none;border-radius:50px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Submit
-          My Testimony</button>
+          style="width:100%;padding:12px;background:var(--navy);color:var(--cream);border:none;border-radius:50px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Submit My Testimony</button>
       </div>
 
       <div id="tSuccess" style="display:none;text-align:center;padding:30px 10px;">
@@ -3906,29 +3912,29 @@
 
   <div id="prayerRequest" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
-    <div class="panel-content">
-      <div style="text-align:center;padding:12px 0 6px;"><img
+    <div class="panel-scroll">
+      <div style="text-align:center;padding:12px 0 4px;"><img
           src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTc5MC4wMDAwMDBwdCIgaGVpZ2h0PSIxODkwLjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTc5MC4wMDAwMDAgMTg5MC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KCjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDE4OTAuMDAwMDAwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIgpmaWxsPSIjMDAwMDAwIiBzdHJva2U9Im5vbmUiPgo8cGF0aCBkPSJNNzkwNyAxMTgwOCBjLTIzIC0yMyAtMjMxIC00MDYgLTM3NCAtNjg4IGwtNzggLTE1NSAtNjgwIC02IGMtMzc0Ci00IC04NjcgLTEyIC0xMDk1IC0xOSAtNDUyIC0xMyAtNDUwIC0xMyAtNDUwIC03MCAwIC01NiAtMjkgLTU1IDc0OCAtMzYgODE4CjE5IDE0MTIgMjEgMTQxMiA2IDAgLTYgLTE4IC00NyAtNDEgLTkxIC01MyAtMTA2IC0xNTIgLTMyMCAtMjUxIC01NDQgLTM3OAotODUzIC02ODEgLTE2ODcgLTkzMiAtMjU2NSAtNTggLTIwMiAtNjYgLTIzMSAtMTE1IC00MTUgLTI0IC05MCAtMTI4IC01MTAKLTE0NiAtNTkxIC02IC0yOCAyMSAtNjQgNDkgLTY0IDI0IDAgNTYgMjggNTYgNDkgMCAzNSAxNzcgNzE4IDI2NCAxMDE3IDEwMwozNTYgMTA1IDM2MiAyNTEgNzk5IDIxMSA2MzQgNDUyIDEyNDkgNzMwIDE4NjAgOTIgMjAzIDI0NSA1MjUgMjU4IDU0MyA4IDEwCjEyNiAxMiA1NjQgMTIgNDIxIC0xIDU1OCAyIDU2OSAxMSAyMyAxOSAxNCA3MSAtMTYgODYgLTE5IDEwIC0xNDUgMTMgLTUzMiAxMwotMzA0IDAgLTUwOSA0IC01MTMgOSAtNiAxMSA4OSAxOTggMjgyIDU1NCA2OCAxMjYgMTIzIDIzOSAxMjMgMjUyIDAgMjIgLTMyCjU1IC01MyA1NSAtNCAwIC0xOCAtMTAgLTMwIC0yMnoiLz4KPHBhdGggZD0iTTc3MTAgMTAxNTEgbDAgLTM4MSA4NSAwIDg1IDAgMCAxMDQgMCAxMDQgMTM4IDQgYzExNiAzIDE0NSA3IDE4OAoyNyA5OSA0NCAxNDcgMTIyIDE0OCAyNDAgMSAxMjcgLTU2IDIxNiAtMTY2IDI1OCAtMzMgMTMgLTkyIDE3IC0yNjAgMjEgbC0yMTgKNCAwIC0zODF6IG0zOTMgMjA4IGM5NiAtMjYgMTA0IC0xNzYgMTIgLTIxNSAtMjIgLTkgLTcxIC0xNCAtMTM1IC0xNCBsLTEwMCAwCjAgMTIwIDAgMTIwIDkzIDAgYzUwIDAgMTA5IC01IDEzMCAtMTF6Ii8+CjxwYXRoIGQ9Ik05Njc1IDEwNDQzIGMtMTYgLTIgLTQ1IC02IC02MiAtOSBsLTMzIC01IDAgLTY0IDAgLTY1IC00NSAwIC00NSAwCjAgLTcwIDAgLTcwIDQ0IDAgNDQgMCA0IC0xMzcgYzQgLTE0NiAxMyAtMTc3IDYwIC0yMTkgNDcgLTQzIDEyNyAtNTUgMjE0IC0zMwoyNSA3IDQ4IDE3IDUwIDIzIDggMjEgLTMzIDEyMSAtNDcgMTE4IC04IC0yIC0yOSAtNCAtNDggLTUgLTUyIC0yIC02MSAxOSAtNjEKMTQ1IGwwIDEwOCA2NSAwIDY1IDAgMCA3MCAwIDcwIC02NSAwIC02NSAwIDAgNzUgYzAgODMgNSA3OCAtNzUgNjh6Ii8+CjxwYXRoIGQ9Ik04NTMyIDEwMjkyIGMtMTA1IC0zOCAtMTY1IC0xMzEgLTE2NiAtMjU3IC0xIC05NiAyMyAtMTUzIDg0IC0yMDgKNTIgLTQ3IDEwNyAtNjcgMTc3IC02NyA0NSAxIDEwNyAyMiAxMzIgNDQgMjUgMjMgNDEgMjAgNDEgLTkgMCAtMjQgMiAtMjUgNzUKLTI1IGw3NSAwIDAgMjY1IDAgMjY2IC03MiAtMyBjLTcxIC0zIC03MyAtNCAtNzYgLTMwIC0zIC0yOCAtMTYgLTM2IC0yNyAtMTgKLTEzIDIxIC04NSA1MCAtMTM3IDU1IC0zOCA0IC02OCAwIC0xMDYgLTEzeiBtMjIwIC0xNzEgYzIzIC0yNiAyOCAtNDAgMjggLTg1CjAgLTQ0IC01IC02MCAtMjYgLTg1IC00NyAtNTYgLTEzMyAtNjEgLTE4NCAtMTAgLTU1IDU1IC01MiAxMzggNyAxODkgMzMgMzAKNDEgMzIgOTEgMjggNDcgLTQgNjAgLTEwIDg0IC0zN3oiLz4KPHBhdGggZD0iTTkxNzMgMTAzMDAgYy03NiAtMTYgLTEzMSAtNTYgLTE1MiAtMTEzIC0xNiAtNDEgLTE0IC02NSAxMCAtMTEzIDI2Ci01NCA5NCAtODkgMTkxIC05OSA3OCAtOCAxMDkgLTI1IDkyIC01MiAtMTYgLTI1IC0xNTAgLTI1IC0yMTMgMCAtNDkgMjAgLTQ3CjIxIC04NSAtNDUgbC0yNiAtNDcgNDggLTI1IGM5OCAtNDkgMjQ1IC01OCAzNDAgLTIwIDIzIDkgNTYgMzIgNzMgNTIgMjkgMzMKMzEgMzkgMjcgOTggLTYgOTcgLTUzIDEzNCAtMTk5IDE1NiAtNTkgOSAtODUgMTggLTkzIDMxIC0yNyA0NCA3NyA2MyAxNzAgMzEKMzkgLTEzIDQ5IC0xNCA1NSAtMiA1IDcgMjAgMzIgMzQgNTYgbDI2IDQyIC00NSAyMSBjLTc4IDM0IC0xNzEgNDUgLTI1MyAyOXoiLz4KPHBhdGggZD0iTTEwMTExIDEwMjk1IGMtMTQxIC00MCAtMjExIC0xNDEgLTE5OSAtMjg4IDkgLTEwNSA1OCAtMTc2IDE1MiAtMjE4CjEzNSAtNjAgMzEyIC0xOSAzODYgODggNDUgNjYgNTUgMTg4IDIxIDI3NSAtMTcgNDUgLTc4IDEwNCAtMTI5IDEyNiAtNjcgMjkKLTE2MyAzNiAtMjMxIDE3eiBtMTY4IC0xNjEgYzgwIC02NyA0NyAtMjEyIC01MSAtMjI2IC00NSAtNyAtOTAgNyAtMTE3IDM2Ci0yOSAzMSAtMzkgMTAzIC0yMSAxNDcgMjkgNjggMTMxIDkyIDE4OSA0M3oiLz4KPHBhdGggZD0iTTEwNzk0IDEwMzAwIGMtMTYgLTUgLTQxIC0yMSAtNTQgLTM1IC0zMCAtMzIgLTM4IC0zMiAtNDIgMyAtMyAyNwotNCAyNyAtNzYgMjcgbC03MyAwIC0yIC0yNjMgLTIgLTI2MiA4OCAwIDg3IDAgMCAxNjEgMCAxNjEgMzAgMzAgYzI4IDI3IDM1CjI5IDgzIDI2IDI4IC0yIDYwIC04IDY5IC0xMiAxNCAtNiAyMyA0IDQ4IDU0IDE3IDMzIDI4IDY1IDI1IDcwIC0yMCAzMyAtMTI3CjU2IC0xODEgNDB6Ii8+CjxwYXRoIGQ9Ik05NDI4IDk1NzEgYy03NCAtMjQgLTExOSAtNTMgLTE2NyAtMTA4IC0xMjMgLTEzOSAtMTE2IC0zOTcgMTQgLTUyNwoxNTcgLTE1NyA0NjUgLTE1MyA2MTMgOCA2NCA2OSA4NCAxMjQgOTAgMjM3IDkgMjAwIC03NCAzMzIgLTI0NiAzODggLTgxIDI3Ci0yMjIgMjggLTMwNCAyeiBtMjUwIC0xNTYgYzgyIC0zNSAxMjYgLTEwNiAxMjcgLTIwNSAwIC0xMjYgLTc2IC0yMTQgLTE5NgotMjI3IC0xMDYgLTExIC0xODggMzAgLTIzMSAxMTYgLTYwIDExNyAtMjAgMjUzIDkxIDMxMSA0NiAyNCAxNTYgMjcgMjA5IDV6Ii8+CjxwYXRoIGQ9Ik0xMDU1MCA5NTg4IGMwIC0yIC0xIC0xNzMgLTMgLTM4MSBsLTIgLTM3NyA3MyAwIGM3MiAwIDczIDAgNzggMjkKbDYgMjkgNTEgLTMyIGM0NSAtMjggNTggLTMxIDEyNiAtMzEgMTE0IDEgMTg1IDQ2IDIzMCAxNDUgMzAgNjYgMjkgMTg4IC0zCjI1NiAtNTkgMTI4IC0yMTggMTc4IC0zNDMgMTA5IGwtNDIgLTIzIC0zIDEzNiAtMyAxMzcgLTgyIDMgYy00NiAyIC04MyAyIC04MwoweiBtMzY5IC0zOTQgYzQ1IC0zOCA1OCAtOTIgMzcgLTE0OSAtMjEgLTU0IC01NSAtNzUgLTEyMCAtNzUgLTExNSAwIC0xNjUKMTQ5IC03NSAyMjQgNDMgMzYgMTE1IDM2IDE1OCAweiIvPgo8cGF0aCBkPSJNODAyMiA5MjY1IGMtMTE3IC0xMTggLTIxNSAtMjE1IC0yMTcgLTIxNSAtMTAgMCA0OSAxNDEgMTA2IDI1MyA0OAo5NiA1NyAxMjEgNDkgMTM3IC0xOCAzMyAtNDcgMjQgLTc3IC0yMiAtNzUgLTEyMCAtMTg1IC0zOTggLTIwMCAtNTA2IC01IC0zNgotMyAtNDggMTEgLTU4IDEwIC03IDI0IC0xMCAzMiAtNyA3IDIgMTA4IDEwNiAyMjQgMjI5IDExNiAxMjMgMjE1IDIyNCAyMTkKMjI0IDUgMCAtNSAtNDYgLTIxIC0xMDIgLTE2IC01NyAtMzEgLTEzNyAtMzQgLTE3OCAtNiAtNjggLTQgLTc4IDE4IC0xMTAgNDEKLTYwIDEwMyAtNTEgMTg5IDI3IDQwIDM2IDQxIDM2IDY5IDIwIDM1IC0yMSA3NiAtMjIgMTE0IC0yIDQ0IDIzIDE1OCAxMTkgMjU0CjIxMyA0NyA0NSA4NiA4MSA4OCA3OSAyIC0xIC0yMCAtNzIgLTQ5IC0xNTYgbC01MiAtMTU0IC0xODUgLTE1NiBjLTUyMyAtNDQxCi04ODggLTg5NCAtOTU1IC0xMTg2IC0yMiAtOTMgLTE0IC0xNDQgMjkgLTE5MCAzMCAtMzEgMzkgLTM1IDg0IC0zNSA5MiAwIDE4Mwo1MyAzMjEgMTg1IDI0OSAyMzkgNTAwIDY1NiA3MDkgMTE3NyA2NiAxNjYgNTUgMTU0IDI5MCAzMjUgOTQgNjkgMTAyIDc3IDEwMgoxMDggMCAxOSAtNiAzNSAtMTQgMzggLTE0IDYgLTc3IC0zNSAtMTg4IC0xMTkgLTMxIC0yNCAtNjEgLTQ0IC02NiAtNDQgLTUgMAo2IDQ2IDI1IDEwMyA1NCAxNTkgNTYgMjc3IDUgMjc3IC05IDAgLTYzIC01MCAtMTIxIC0xMTIgLTE2NCAtMTczIC0zMTkgLTMwMwotMzM5IC0yODMgLTIwIDE5IDEwMiAyODYgMTQ5IDMyNiA0OCA0MiAyNiAxMDEgLTMyIDg2IC0zMCAtOCAtODkgLTEwMyAtMTQ0Ci0yMzIgLTQyIC0xMDEgLTg0IC0xNTggLTE1OCAtMjE2IC0zNSAtMjggLTUzIC0zNyAtNjEgLTI5IC0xNiAxNiA5IDE2MyA1MwozMDIgNTAgMTY0IDU0IDE4NCAzNSAyMDMgLTkgOCAtMjMgMTUgLTMyIDE1IC05IDAgLTExMyAtOTcgLTIzMCAtMjE1eiBtNjQ4Ci01MTMgYzAgLTE3IC0xMTAgLTI2MyAtMTgzIC00MDcgLTE0NCAtMjg5IC0zMDAgLTUyMyAtNDU2IC02ODcgLTE2MCAtMTY4Ci0yOTQgLTI0MyAtMzQ1IC0xOTIgLTI0IDI0IC0xOSA4MCAxNyAxNzUgMTA0IDI3MSAzOTUgNjI2IDgzNyAxMDE3IDExMCA5NwoxMzAgMTEyIDEzMCA5NHoiLz4KPHBhdGggZD0iTTc0MzUgOTQ0MSBjLTExMSAtNDAgLTE2MCAtODUgLTIxOCAtMTk2IC0yNSAtNDkgLTMxIC03NiAtMzUgLTE0MgotNCAtNzUgLTIgLTg4IDIzIC0xMzggNDcgLTk3IDEzNSAtMTQwIDIzNyAtMTE3IDIzMyA1NCAzNjcgNDEyIDIwOCA1NTYgLTYzCjU2IC0xMzAgNjggLTIxNSAzN3ogbTE1MyAtODcgYzM0IC0yNCA1MiAtNjggNTIgLTEyOCAwIC0xNjIgLTE1MCAtMzI1IC0yNzYKLTMwMiAtNDEgOCAtOTAgNjIgLTEwNSAxMTggLTI1IDk2IDUxIDI1MCAxNTAgMzAxIDYzIDMxIDE0MyAzNyAxNzkgMTF6Ii8+CjxwYXRoIGQ9Ik0xMDE4MCA5MzU3IGMtMTAwIC0yOCAtMTUwIC04MyAtMTUwIC0xNjQgMCAtODYgNjMgLTEzNyAxOTEgLTE1NCA0NgotNiA5MCAtMTYgOTcgLTIxIDE3IC0xNCAxNSAtNDUgLTQgLTUyIC0zMiAtMTIgLTEzMCAtNSAtMTg0IDE0IC0zMCAxMCAtNTggMTYKLTYxIDE0IC00IC0yIC0xOSAtMjUgLTMzIC01MCAtMzEgLTU2IC0yNyAtNjQgNTIgLTk1IDg1IC0zMyAyNDggLTMzIDMxNCAtMQo2MCAzMCA5MCA3MSA5NSAxMzEgOSA5NyAtNTUgMTUxIC0yMDUgMTc1IC05OCAxNSAtMTE4IDI5IC04MyA1NyAyOCAyMyA4OCAyNQoxNTYgNCA1NiAtMTYgNjAgLTE0IDk1IDUwIDI5IDUzIDI3IDU1IC01NSA4MCAtNzEgMjIgLTE3MiAyNyAtMjI1IDEyeiIvPgo8cGF0aCBkPSJNMTEzNjEgOTM1NSBjLTE0MSAtNDAgLTIxMSAtMTQxIC0xOTkgLTI4OCA5IC0xMDUgNTcgLTE3NSAxNTMgLTIxOQo3MSAtMzMgMjA5IC0zMyAyNzYgMCA5OCA0OCAxNTAgMTI5IDE1MSAyMzUgMSA4NiAtMTYgMTM3IC02MiAxODkgLTcwIDgwIC0yMDQKMTE1IC0zMTkgODN6IG0xNjggLTE2MSBjNTcgLTQ4IDYyIC0xNDIgOSAtMTk1IC0yOCAtMjggLTUxIC0zNCAtMTA4IC0yOSAtMTA3CjkgLTEzOSAxODIgLTQyIDIzNCA0NCAyNCAxMDYgMjAgMTQxIC0xMHoiLz4KPHBhdGggZD0iTTEyMDQ0IDkzNjAgYy0xNiAtNSAtNDEgLTIxIC01NCAtMzUgLTMwIC0zMiAtMzggLTMyIC00MiAzIC0zIDI2IC01CjI3IC03NSAzMCBsLTczIDMgMCAtMjY2IDAgLTI2NSA4NCAwIDg1IDAgMyAxNjYgMyAxNjYgMjkgMjUgYzI1IDIxIDM3IDI0IDgwCjIxIDI4IC0zIDU4IC04IDY3IC0xMiAxMyAtNiAyNCA1IDQ4IDUxIDE3IDMxIDI5IDYzIDI3IDcwIC0xNCAzNCAtMTI0IDYxCi0xODIgNDN6Ii8+CjxwYXRoIGQ9Ik0xMjUyNSA5MzYxIGMtMzYgLTkgLTc0IC0yOCAtOTcgLTQ5IC0xNyAtMTQgLTE4IC0xMiAtMjQgMTYgbC02IDMyCi03NCAwIC03NCAwIDAgLTI2NSAwIC0yNjUgODQgMCA4NSAwIDMgMTY2IDMgMTY2IDMzIDI5IGMyMyAyMCA0MyAyOSA2OCAyOSA4OAowIDEwNCAtMzggMTA0IC0yNDAgbDAgLTE1MCA4NiAwIDg2IDAgLTQgMTg4IGMtNCAxODQgLTQgMTg4IC0zMyAyNDAgLTE5IDM2Ci00MiA2MSAtNjkgNzcgLTQ1IDI2IC0xMjQgMzggLTE3MSAyNnoiLz4KPC9nPgo8L3N2Zz4K"
-          style="width:110px;height:110px;object-fit:contain;" alt="Logo"></div>
-      <h2 class="panel-header"><i class="fas fa-praying-hands"></i> PRAYER REQUEST <i class="fas fa-praying-hands"></i>
-      </h2>
+          style="width:90px;height:90px;object-fit:contain;" alt="Logo"></div>
+
+      <!-- Change 1: new header -->
+      <h2 class="panel-header" style="font-size:clamp(16px,4vw,28px);margin-bottom:4px;"><i class="fas fa-praying-hands"></i> SHARE YOUR PRAYER REQUEST <i class="fas fa-praying-hands"></i></h2>
+      <!-- Change 2: subtitle -->
+      <p style="text-align:center;font-size:11px;color:var(--muted);font-weight:600;line-height:1.6;margin-bottom:14px;padding:0 8px;">Our Lead Pastor and prayer team personally pray over every request.</p>
 
       <div id="pForm" style="padding:0 4px;">
 
+        <!-- Change 5: New 2-column block layout -->
+        <!-- Row 1: Full Name | Phone Number -->
         <div class="embed-row">
-          <div class="embed-field"><label class="embed-label">First Name *</label><input class="embed-input" type="text"
-              placeholder="First Name" id="pFirst"></div>
-          <div class="embed-field"><label class="embed-label">Last Name</label><input class="embed-input" type="text"
-              placeholder="Last Name" id="pLast"></div>
-        </div>
-
-        <div class="embed-row">
-          <div class="embed-field"><label class="embed-label">Email Address</label><input class="embed-input"
-              type="email" placeholder="your@email.com" id="pEmail" oninput="validateEmail(this)"></div>
           <div class="embed-field">
-            <label class="embed-label">Phone Number</label>
+            <label class="embed-label" style="font-size:10px;">Full Name *</label>
+            <input class="embed-input" type="text" placeholder="Your full name" id="pFirst">
+          </div>
+          <div class="embed-field">
+            <label class="embed-label" style="font-size:10px;">Phone Number</label>
             <div class="embed-phone">
-              <select class="embed-input embed-cc" id="pPhoneCc">
+              <select class="embed-input embed-cc" id="pPhoneCc" onchange="limitPrayerPhone(document.getElementById('pPhone'))"  >
                 <option value="+255">🇹🇿 +255</option>
                 <option value="+254">🇰🇪 +254</option>
                 <option value="+256">🇺🇬 +256</option>
@@ -3948,33 +3954,22 @@
                 <option value="+1-CA">🇨🇦 +1</option>
               </select>
               <input class="embed-input" type="tel" placeholder="700 000 000" id="pPhone" inputmode="numeric"
-                pattern="[0-9]*" style="flex:1;" oninput="detectPhone(this,'pPhoneCc','pCountry')">
+                pattern="[0-9]*" style="flex:1;" oninput="detectPhone(this,'pPhoneCc','pCountry'); limitPrayerPhone(this)">
             </div>
           </div>
         </div>
 
+        <!-- Row 2: Email Address | Country -->
         <div class="embed-row">
           <div class="embed-field">
-            <label class="embed-label">Prayer Category *</label>
-            <select class="embed-input" id="pCategory">
-              <option value="" disabled selected>Select category</option>
-              <option>Health &amp; Healing</option>
-              <option>Family &amp; Relationships</option>
-              <option>Financial Breakthrough</option>
-              <option>Salvation</option>
-              <option>Career &amp; Purpose</option>
-              <option>Change of Character</option>
-              <option>Marriage</option>
-              <option>Children &amp; Parenting</option>
-              <option>Mental &amp; Emotional Wellbeing</option>
-              <option>Spiritual Growth</option>
-              <option>Other</option>
-            </select>
+            <label class="embed-label" style="font-size:10px;">Email Address</label>
+            <input class="embed-input" type="email" placeholder="your@email.com" id="pEmail" oninput="validateEmail(this)">
           </div>
           <div class="embed-field">
-            <label class="embed-label">Country</label>
+            <!-- Change 4: shorter country placeholder -->
+            <label class="embed-label" style="font-size:10px;">Country</label>
             <select class="embed-input" id="pCountry">
-              <option value="" disabled selected>Suggested after phone entry</option>
+              <option value="" disabled selected>Select country</option>
               <option value="TZ">🇹🇿 Tanzania</option>
               <option value="KE">🇰🇪 Kenya</option>
               <option value="UG">🇺🇬 Uganda</option>
@@ -3997,17 +3992,37 @@
           </div>
         </div>
 
-        <div style="margin-bottom:10px;">
-          <label class="embed-label">City / Area</label>
-          <input class="embed-input" type="text" placeholder="e.g. Kinondoni, Dar es Salaam" id="pCity"
-            style="width:100%;">
+        <!-- Row 3: Prayer Category | City/Area -->
+        <div class="embed-row">
+          <div class="embed-field">
+            <label class="embed-label" style="font-size:10px;">Prayer Category *</label>
+            <select class="embed-input" id="pCategory">
+              <option value="" disabled selected>Select category</option>
+              <option>Health &amp; Healing</option>
+              <option>Family &amp; Relationships</option>
+              <option>Financial Breakthrough</option>
+              <option>Salvation</option>
+              <option>Career &amp; Purpose</option>
+              <option>Change of Character</option>
+              <option>Marriage</option>
+              <option>Children &amp; Parenting</option>
+              <option>Mental &amp; Emotional Wellbeing</option>
+              <option>Spiritual Growth</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="embed-field">
+            <label class="embed-label" style="font-size:10px;">City / Area</label>
+            <input class="embed-input" type="text" placeholder="e.g. Dar es Salaam" id="pCity">
+          </div>
         </div>
 
+        <!-- Full-width Prayer Request textarea -->
         <div style="margin-bottom:10px;">
-          <label class="embed-label">Your Prayer Request *</label>
+          <label class="embed-label" style="font-size:10px;">Your Prayer Request *</label>
           <textarea class="embed-input" id="pMessage" maxlength="2000"
             placeholder="Share your prayer request. You are in a safe space..." oninput="updatePCount()"
-            style="width:100%;min-height:80px;resize:vertical;line-height:1.5;padding:8px 10px;"></textarea>
+            style="width:100%;min-height:90px;resize:vertical;line-height:1.5;padding:8px 10px;"></textarea>
           <div class="embed-char-counter"><span id="pCount">0</span> / 2000</div>
         </div>
 
@@ -4016,21 +4031,21 @@
           My Prayer Request</button>
       </div>
 
+      <!-- Change 3: updated success screen — top logo only, new verse -->
       <div id="pSuccess" style="display:none;text-align:center;padding:30px 10px;">
-        <div style="margin-bottom:10px;"><img
-            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTc5MC4wMDAwMDBwdCIgaGVpZ2h0PSIxODkwLjAwMDAwMHB0IiB2aWV3Qm94PSIwIDAgMTc5MC4wMDAwMDAgMTg5MC4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KCjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDE4OTAuMDAwMDAwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIgpmaWxsPSIjMDAwMDAwIiBzdHJva2U9Im5vbmUiPgo8cGF0aCBkPSJNNzkwNyAxMTgwOCBjLTIzIC0yMyAtMjMxIC00MDYgLTM3NCAtNjg4IGwtNzggLTE1NSAtNjgwIC02IGMtMzc0Ci00IC04NjcgLTEyIC0xMDk1IC0xOSAtNDUyIC0xMyAtNDUwIC0xMyAtNDUwIC03MCAwIC01NiAtMjkgLTU1IDc0OCAtMzYgODE4CjE5IDE0MTIgMjEgMTQxMiA2IDAgLTYgLTE4IC00NyAtNDEgLTkxIC01MyAtMTA2IC0xNTIgLTMyMCAtMjUxIC01NDQgLTM3OAotODUzIC02ODEgLTE2ODcgLTkzMiAtMjU2NSAtNTggLTIwMiAtNjYgLTIzMSAtMTE1IC00MTUgLTI0IC05MCAtMTI4IC01MTAKLTE0NiAtNTkxIC02IC0yOCAyMSAtNjQgNDkgLTY0IDI0IDAgNTYgMjggNTYgNDkgMCAzNSAxNzcgNzE4IDI2NCAxMDE3IDEwMwozNTYgMTA1IDM2MiAyNTEgNzk5IDIxMSA2MzQgNDUyIDEyNDkgNzMwIDE4NjAgOTIgMjAzIDI0NSA1MjUgMjU4IDU0MyA4IDEwCjEyNiAxMiA1NjQgMTIgNDIxIC0xIDU1OCAyIDU2OSAxMSAyMyAxOSAxNCA3MSAtMTYgODYgLTE5IDEwIC0xNDUgMTMgLTUzMiAxMwotMzA0IDAgLTUwOSA0IC01MTMgOSAtNiAxMSA4OSAxOTggMjgyIDU1NCA2OCAxMjYgMTIzIDIzOSAxMjMgMjUyIDAgMjIgLTMyCjU1IC01MyA1NSAtNCAwIC0xOCAtMTAgLTMwIC0yMnoiLz4KPHBhdGggZD0iTTc3MTAgMTAxNTEgbDAgLTM4MSA4NSAwIDg1IDAgMCAxMDQgMCAxMDQgMTM4IDQgYzExNiAzIDE0NSA3IDE4OAoyNyA5OSA0NCAxNDcgMTIyIDE0OCAyNDAgMSAxMjcgLTU2IDIxNiAtMTY2IDI1OCAtMzMgMTMgLTkyIDE3IC0yNjAgMjEgbC0yMTgKNCAwIC0zODF6IG0zOTMgMjA4IGM5NiAtMjYgMTA0IC0xNzYgMTIgLTIxNSAtMjIgLTkgLTcxIC0xNCAtMTM1IC0xNCBsLTEwMCAwCjAgMTIwIDAgMTIwIDkzIDAgYzUwIDAgMTA5IC01IDEzMCAtMTF6Ii8+CjxwYXRoIGQ9Ik05Njc1IDEwNDQzIGMtMTYgLTIgLTQ1IC02IC02MiAtOSBsLTMzIC01IDAgLTY0IDAgLTY1IC00NSAwIC00NSAwCjAgLTcwIDAgLTcwIDQ0IDAgNDQgMCA0IC0xMzcgYzQgLTE0NiAxMyAtMTc3IDYwIC0yMTkgNDcgLTQzIDEyNyAtNTUgMjE0IC0zMwoyNSA3IDQ4IDE3IDUwIDIzIDggMjEgLTMzIDEyMSAtNDcgMTE4IC04IC0yIC0yOSAtNCAtNDggLTUgLTUyIC0yIC02MSAxOSAtNjEKMTQ1IGwwIDEwOCA2NSAwIDY1IDAgMCA3MCAwIDcwIC02NSAwIC02NSAwIDAgNzUgYzAgODMgNSA3OCAtNzUgNjh6Ii8+CjxwYXRoIGQ9Ik04NTMyIDEwMjkyIGMtMTA1IC0zOCAtMTY1IC0xMzEgLTE2NiAtMjU3IC0xIC05NiAyMyAtMTUzIDg0IC0yMDgKNTIgLTQ3IDEwNyAtNjcgMTc3IC02NyA0NSAxIDEwNyAyMiAxMzIgNDQgMjUgMjMgNDEgMjAgNDEgLTkgMCAtMjQgMiAtMjUgNzUKLTI1IGw3NSAwIDAgMjY1IDAgMjY2IC03MiAtMyBjLTcxIC0zIC03MyAtNCAtNzYgLTMwIC0zIC0yOCAtMTYgLTM2IC0yNyAtMTgKLTEzIDIxIC04NSA1MCAtMTM3IDU1IC0zOCA0IC02OCAwIC0xMDYgLTEzeiBtMjIwIC0xNzEgYzIzIC0yNiAyOCAtNDAgMjggLTg1CjAgLTQ0IC01IC02MCAtMjYgLTg1IC00NyAtNTYgLTEzMyAtNjEgLTE4NCAtMTAgLTU1IDU1IC01MiAxMzggNyAxODkgMzMgMzAKNDEgMzIgOTEgMjggNDcgLTQgNjAgLTEwIDg0IC0zN3oiLz4KPHBhdGggZD0iTTkxNzMgMTAzMDAgYy03NiAtMTYgLTEzMSAtNTYgLTE1MiAtMTEzIC0xNiAtNDEgLTE0IC02NSAxMCAtMTEzIDI2Ci01NCA5NCAtODkgMTkxIC05OSA3OCAtOCAxMDkgLTI1IDkyIC01MiAtMTYgLTI1IC0xNTAgLTI1IC0yMTMgMCAtNDkgMjAgLTQ3CjIxIC04NSAtNDUgbC0yNiAtNDcgNDggLTI1IGM5OCAtNDkgMjQ1IC01OCAzNDAgLTIwIDIzIDkgNTYgMzIgNzMgNTIgMjkgMzMKMzEgMzkgMjcgOTggLTYgOTcgLTUzIDEzNCAtMTk5IDE1NiAtNTkgOSAtODUgMTggLTkzIDMxIC0yNyA0NCA3NyA2MyAxNzAgMzEKMzkgLTEzIDQ5IC0xNCA1NSAtMiA1IDcgMjAgMzIgMzQgNTYgbDI2IDQyIC00NSAyMSBjLTc4IDM0IC0xNzEgNDUgLTI1MyAyOXoiLz4KPHBhdGggZD0iTTEwMTExIDEwMjk1IGMtMTQxIC00MCAtMjExIC0xNDEgLTE5OSAtMjg4IDkgLTEwNSA1OCAtMTc2IDE1MiAtMjE4CjEzNSAtNjAgMzEyIC0xOSAzODYgODggNDUgNjYgNTUgMTg4IDIxIDI3NSAtMTcgNDUgLTc4IDEwNCAtMTI5IDEyNiAtNjcgMjkKLTE2MyAzNiAtMjMxIDE3eiBtMTY4IC0xNjEgYzgwIC02NyA0NyAtMjEyIC01MSAtMjI2IC00NSAtNyAtOTAgNyAtMTE3IDM2Ci0yOSAzMSAtMzkgMTAzIC0yMSAxNDcgMjkgNjggMTMxIDkyIDE4OSA0M3oiLz4KPHBhdGggZD0iTTEwNzk0IDEwMzAwIGMtMTYgLTUgLTQxIC0yMSAtNTQgLTM1IC0zMCAtMzIgLTM4IC0zMiAtNDIgMyAtMyAyNwotNCAyNyAtNzYgMjcgbC03MyAwIC0yIC0yNjMgLTIgLTI2MiA4OCAwIDg3IDAgMCAxNjEgMCAxNjEgMzAgMzAgYzI4IDI3IDM1CjI5IDgzIDI2IDI4IC0yIDYwIC04IDY5IC0xMiAxNCAtNiAyMyA0IDQ4IDU0IDE3IDMzIDI4IDY1IDI1IDcwIC0yMCAzMyAtMTI3CjU2IC0xODEgNDB6Ii8+CjxwYXRoIGQ9Ik05NDI4IDk1NzEgYy03NCAtMjQgLTExOSAtNTMgLTE2NyAtMTA4IC0xMjMgLTEzOSAtMTE2IC0zOTcgMTQgLTUyNwoxNTcgLTE1NyA0NjUgLTE1MyA2MTMgOCA2NCA2OSA4NCAxMjQgOTAgMjM3IDkgMjAwIC03NCAzMzIgLTI0NiAzODggLTgxIDI3Ci0yMjIgMjggLTMwNCAyeiBtMjUwIC0xNTYgYzgyIC0zNSAxMjYgLTEwNiAxMjcgLTIwNSAwIC0xMjYgLTc2IC0yMTQgLTE5NgotMjI3IC0xMDYgLTExIC0xODggMzAgLTIzMSAxMTYgLTYwIDExNyAtMjAgMjUzIDkxIDMxMSA0NiAyNCAxNTYgMjcgMjA5IDV6Ii8+CjxwYXRoIGQ9Ik0xMDU1MCA5NTg4IGMwIC0yIC0xIC0xNzMgLTMgLTM4MSBsLTIgLTM3NyA3MyAwIGM3MiAwIDczIDAgNzggMjkKbDYgMjkgNTEgLTMyIGM0NSAtMjggNTggLTMxIDEyNiAtMzEgMTE0IDEgMTg1IDQ2IDIzMCAxNDUgMzAgNjYgMjkgMTg4IC0zCjI1NiAtNTkgMTI4IC0yMTggMTc4IC0zNDMgMTA5IGwtNDIgLTIzIC0zIDEzNiAtMyAxMzcgLTgyIDMgYy00NiAyIC04MyAyIC04MwoweiBtMzY5IC0zOTQgYzQ1IC0zOCA1OCAtOTIgMzcgLTE0OSAtMjEgLTU0IC01NSAtNzUgLTEyMCAtNzUgLTExNSAwIC0xNjUKMTQ5IC03NSAyMjQgNDMgMzYgMTE1IDM2IDE1OCAweiIvPgo8cGF0aCBkPSJNODAyMiA5MjY1IGMtMTE3IC0xMTggLTIxNSAtMjE1IC0yMTcgLTIxNSAtMTAgMCA0OSAxNDEgMTA2IDI1MyA0OAo5NiA1NyAxMjEgNDkgMTM3IC0xOCAzMyAtNDcgMjQgLTc3IC0yMiAtNzUgLTEyMCAtMTg1IC0zOTggLTIwMCAtNTA2IC01IC0zNgotMyAtNDggMTEgLTU4IDEwIC03IDI0IC0xMCAzMiAtNyA3IDIgMTA4IDEwNiAyMjQgMjI5IDExNiAxMjMgMjE1IDIyNCAyMTkKMjI0IDUgMCAtNSAtNDYgLTIxIC0xMDIgLTE2IC01NyAtMzEgLTEzNyAtMzQgLTE3OCAtNiAtNjggLTQgLTc4IDE4IC0xMTAgNDEKLTYwIDEwMyAtNTEgMTg5IDI3IDQwIDM2IDQxIDM2IDY5IDIwIDM1IC0yMSA3NiAtMjIgMTE0IC0yIDQ0IDIzIDE1OCAxMTkgMjU0CjIxMyA0NyA0NSA4NiA4MSA4OCA3OSAyIC0xIC0yMCAtNzIgLTQ5IC0xNTYgbC01MiAtMTU0IC0xODUgLTE1NiBjLTUyMyAtNDQxCi04ODggLTg5NCAtOTU1IC0xMTg2IC0yMiAtOTMgLTE0IC0xNDQgMjkgLTE5MCAzMCAtMzEgMzkgLTM1IDg0IC0zNSA5MiAwIDE4Mwo1MyAzMjEgMTg1IDI0OSAyMzkgNTAwIDY1NiA3MDkgMTE3NyA2NiAxNjYgNTUgMTU0IDI5MCAzMjUgOTQgNjkgMTAyIDc3IDEwMgoxMDggMCAxOSAtNiAzNSAtMTQgMzggLTE0IDYgLTc3IC0zNSAtMTg4IC0xMTkgLTMxIC0yNCAtNjEgLTQ0IC02NiAtNDQgLTUgMAo2IDQ2IDI1IDEwMyA1NCAxNTkgNTYgMjc3IDUgMjc3IC05IDAgLTYzIC01MCAtMTIxIC0xMTIgLTE2NCAtMTczIC0zMTkgLTMwMwotMzM5IC0yODMgLTIwIDE5IDEwMiAyODYgMTQ5IDMyNiA0OCA0MiAyNiAxMDEgLTMyIDg2IC0zMCAtOCAtODkgLTEwMyAtMTQ0Ci0yMzIgLTQyIC0xMDEgLTg0IC0xNTggLTE1OCAtMjE2IC0zNSAtMjggLTUzIC0zNyAtNjEgLTI5IC0xNiAxNiA5IDE2MyA1MwozMDIgNTAgMTY0IDU0IDE4NCAzNSAyMDMgLTkgOCAtMjMgMTUgLTMyIDE1IC05IDAgLTExMyAtOTcgLTIzMCAtMjE1eiBtNjQ4Ci01MTMgYzAgLTE3IC0xMTAgLTI2MyAtMTgzIC00MDcgLTE0NCAtMjg5IC0zMDAgLTUyMyAtNDU2IC02ODcgLTE2MCAtMTY4Ci0yOTQgLTI0MyAtMzQ1IC0xOTIgLTI0IDI0IC0xOSA4MCAxNyAxNzUgMTA0IDI3MSAzOTUgNjI2IDgzNyAxMDE3IDExMCA5NwoxMzAgMTEyIDEzMCA5NHoiLz4KPHBhdGggZD0iTTc0MzUgOTQ0MSBjLTExMSAtNDAgLTE2MCAtODUgLTIxOCAtMTk2IC0yNSAtNDkgLTMxIC03NiAtMzUgLTE0MgotNCAtNzUgLTIgLTg4IDIzIC0xMzggNDcgLTk3IDEzNSAtMTQwIDIzNyAtMTE3IDIzMyA1NCAzNjcgNDEyIDIwOCA1NTYgLTYzCjU2IC0xMzAgNjggLTIxNSAzN3ogbTE1MyAtODcgYzM0IC0yNCA1MiAtNjggNTIgLTEyOCAwIC0xNjIgLTE1MCAtMzI1IC0yNzYKLTMwMiAtNDEgOCAtOTAgNjIgLTEwNSAxMTggLTI1IDk2IDUxIDI1MCAxNTAgMzAxIDYzIDMxIDE0MyAzNyAxNzkgMTF6Ii8+CjxwYXRoIGQ9Ik0xMDE4MCA5MzU3IGMtMTAwIC0yOCAtMTUwIC04MyAtMTUwIC0xNjQgMCAtODYgNjMgLTEzNyAxOTEgLTE1NCA0NgotNiA5MCAtMTYgOTcgLTIxIDE3IC0xNCAxNSAtNDUgLTQgLTUyIC0zMiAtMTIgLTEzMCAtNSAtMTg0IDE0IC0zMCAxMCAtNTggMTYKLTYxIDE0IC00IC0yIC0xOSAtMjUgLTMzIC01MCAtMzEgLTU2IC0yNyAtNjQgNTIgLTk1IDg1IC0zMyAyNDggLTMzIDMxNCAtMQo2MCAzMCA5MCA3MSA5NSAxMzEgOSA5NyAtNTUgMTUxIC0yMDUgMTc1IC05OCAxNSAtMTE4IDI5IC04MyA1NyAyOCAyMyA4OCAyNQoxNTYgNCA1NiAtMTYgNjAgLTE0IDk1IDUwIDI5IDUzIDI3IDU1IC01NSA4MCAtNzEgMjIgLTE3MiAyNyAtMjI1IDEyeiIvPgo8cGF0aCBkPSJNMTEzNjEgOTM1NSBjLTE0MSAtNDAgLTIxMSAtMTQxIC0xOTkgLTI4OCA5IC0xMDUgNTcgLTE3NSAxNTMgLTIxOQo3MSAtMzMgMjA5IC0zMyAyNzYgMCA5OCA0OCAxNTAgMTI5IDE1MSAyMzUgMSA4NiAtMTYgMTM3IC02MiAxODkgLTcwIDgwIC0yMDQKMTE1IC0zMTkgODN6IG0xNjggLTE2MSBjNTcgLTQ4IDYyIC0xNDIgOSAtMTk1IC0yOCAtMjggLTUxIC0zNCAtMTA4IC0yOSAtMTA3CjkgLTEzOSAxODIgLTQyIDIzNCA0NCAyNCAxMDYgMjAgMTQxIC0xMHoiLz4KPHBhdGggZD0iTTEyMDQ0IDkzNjAgYy0xNiAtNSAtNDEgLTIxIC01NCAtMzUgLTMwIC0zMiAtMzggLTMyIC00MiAzIC0zIDI2IC01CjI3IC03NSAzMCBsLTczIDMgMCAtMjY2IDAgLTI2NSA4NCAwIDg1IDAgMyAxNjYgMyAxNjYgMjkgMjUgYzI1IDIxIDM3IDI0IDgwCjIxIDI4IC0zIDU4IC04IDY3IC0xMiAxMyAtNiAyNCA1IDQ4IDUxIDE3IDMxIDI5IDYzIDI3IDcwIC0xNCAzNCAtMTI0IDYxCi0xODIgNDN6Ii8+CjxwYXRoIGQ9Ik0xMjUyNSA5MzYxIGMtMzYgLTkgLTc0IC0yOCAtOTcgLTQ5IC0xNyAtMTQgLTE4IC0xMiAtMjQgMTYgbC02IDMyCi03NCAwIC03NCAwIDAgLTI2NSAwIC0yNjUgODQgMCA4NSAwIDMgMTY2IDMgMTY2IDMzIDI5IGMyMyAyMCA0MyAyOSA2OCAyOSA4OAowIDEwNCAtMzggMTA0IC0yNDAgbDAgLTE1MCA4NiAwIDg2IDAgLTQgMTg4IGMtNCAxODQgLTQgMTg4IC0zMyAyNDAgLTE5IDM2Ci00MiA2MSAtNjkgNzcgLTQ1IDI2IC0xMjQgMzggLTE3MSAyNnoiLz4KPC9nPgo8L3N2Zz4K"
-            style="width:110px;height:110px;object-fit:contain;" alt="Logo"></div>
-        <h3 style="font-size:16px;font-weight:900;color:var(--navy);letter-spacing:2px;margin-bottom:8px;">We Are
-          Praying With You</h3>
-        <p style="color:var(--muted);font-size:12px;line-height:1.7;">Your prayer request has been received.<br><em
-            style="color:var(--gold);">"The prayer of a righteous person is powerful and effective."</em><br><span
-            style="font-size:10px;">— James 5:16</span></p>
+        <div style="font-size:36px;color:var(--sage);margin-bottom:12px;">✝</div>
+        <h3 style="font-size:16px;font-weight:900;color:var(--navy);letter-spacing:2px;margin-bottom:10px;">We Are Praying With You</h3>
+        <p style="color:var(--muted);font-size:12px;line-height:1.8;">Your prayer request has been received.<br><br>
+          <em style="color:var(--navy);font-style:normal;font-weight:700;">"Don't worry about anything; instead, pray about everything. Tell God what you need, and thank him for all he has done."</em><br>
+          <span style="color:var(--gold);font-size:11px;font-weight:800;">Philippians 4:6 NLT</span>
+        </p>
       </div>
     </div>
   </div>
 
-  <div id="volunteer" class="content-panel" style="padding-top:44px;padding-bottom:80px;">
+  <div id="volunteer" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
+    <div class="panel-scroll">
     <div style="width:100%;max-width:580px;margin:0 auto;">
       <div class="wrap">
 
@@ -4066,7 +4081,7 @@
 
           <!-- Role Dropdown -->
           <div class="sec-label">How would you like to serve?</div>
-          <p style="font-size:9px;color:var(--muted);font-weight:600;letter-spacing:0.5px;margin:-10px 0 12px;text-transform:lowercase;">You don't have experience? No problem - we'll guide you.</p>
+          <p style="font-size:9px;color:var(--muted);font-weight:600;letter-spacing:0.5px;margin:-10px 0 12px;">You don't have experience? No problem — we'll guide you.</p>
           <div class="field">
             <label>Choose a Team <span class="req">*</span></label>
             <div class="multiselect" id="roleSelect">
@@ -4090,6 +4105,11 @@
                     <span class="ms-opt-name">Protocol</span>
                     <i class="fas fa-check ms-opt-check"></i>
                   </div>
+                  <div class="ms-option" onclick="toggleOption(this,'Prayer Team')">
+                    <div class="ms-opt-icon"><i class="fas fa-praying-hands"></i></div>
+                    <span class="ms-opt-name">Prayer Team</span>
+                    <i class="fas fa-check ms-opt-check"></i>
+                  </div>
                   <div class="ms-option" onclick="toggleOption(this,'Singer')">
                     <div class="ms-opt-icon"><i class="fas fa-microphone-alt"></i></div>
                     <span class="ms-opt-name">Singer</span>
@@ -4103,6 +4123,16 @@
                   <div class="ms-option" onclick="toggleOption(this,'Actor')">
                     <div class="ms-opt-icon"><i class="fas fa-theater-masks"></i></div>
                     <span class="ms-opt-name">Actor</span>
+                    <i class="fas fa-check ms-opt-check"></i>
+                  </div>
+                  <div class="ms-option" onclick="toggleOption(this,'Animator')">
+                    <div class="ms-opt-icon"><i class="fas fa-magic"></i></div>
+                    <span class="ms-opt-name">Animator</span>
+                    <i class="fas fa-check ms-opt-check"></i>
+                  </div>
+                  <div class="ms-option" onclick="toggleOption(this,'Voice Over Artist')">
+                    <div class="ms-opt-icon"><i class="fas fa-microphone"></i></div>
+                    <span class="ms-opt-name">Voice Over Artist</span>
                     <i class="fas fa-check ms-opt-check"></i>
                   </div>
                   <div class="ms-option" onclick="toggleOption(this,'Photographer')">
@@ -4130,6 +4160,11 @@
                     <span class="ms-opt-name">Light Engineer</span>
                     <i class="fas fa-check ms-opt-check"></i>
                   </div>
+                  <div class="ms-option" onclick="toggleOption(this,'Sound Engineer')">
+                    <div class="ms-opt-icon"><i class="fas fa-sliders-h"></i></div>
+                    <span class="ms-opt-name">Sound Engineer</span>
+                    <i class="fas fa-check ms-opt-check"></i>
+                  </div>
                   <div class="ms-option" onclick="toggleOption(this,'Digital Marketer')">
                     <div class="ms-opt-icon"><i class="fas fa-bullhorn"></i></div>
                     <span class="ms-opt-name">Digital Marketer</span>
@@ -4138,16 +4173,6 @@
                   <div class="ms-option" onclick="toggleOption(this,'Graphic Designer')">
                     <div class="ms-opt-icon"><i class="fas fa-pen-nib"></i></div>
                     <span class="ms-opt-name">Graphic Designer</span>
-                    <i class="fas fa-check ms-opt-check"></i>
-                  </div>
-                  <div class="ms-option" onclick="toggleOption(this,'Sound Engineer')">
-                    <div class="ms-opt-icon"><i class="fas fa-sliders-h"></i></div>
-                    <span class="ms-opt-name">Sound Engineer</span>
-                    <i class="fas fa-check ms-opt-check"></i>
-                  </div>
-                  <div class="ms-option" onclick="toggleOption(this,'Sound Designer')">
-                    <div class="ms-opt-icon"><i class="fas fa-headphones"></i></div>
-                    <span class="ms-opt-name">Sound Designer</span>
                     <i class="fas fa-check ms-opt-check"></i>
                   </div>
                   <div class="ms-option" onclick="toggleOption(this,'Programmer')">
@@ -4246,13 +4271,14 @@
       <!-- TOAST -->
       <div class="vol-toast-err" id="volToast"><i class="fas fa-exclamation-circle"></i> <span id="volToastMsg"></span>
       </div>
-    </div>
+    </div><!-- /max-width wrapper -->
+    </div><!-- /panel-scroll -->
   </div>
 
   <div id="bookstore" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
-    <h2 class="panel-header"><i class="fas fa-book"></i> OSBORNS STORE <i class="fas fa-book"></i></h2>
-    <div class="panel-content">
+    <div class="panel-scroll">
+      <h2 class="panel-header"><i class="fas fa-book"></i> OSBORNS STORE <i class="fas fa-book"></i></h2>
       <div class="store-wrap">
         <p>Books, devotionals, and ministry resources by Pastor Tony Osborn.</p>
         <button class="store-btn" onclick="location.href='https://store.pastortonyosbornministries.org/'"><i
@@ -4262,8 +4288,9 @@
   </div>
 
   <!-- ══ GIVE PANEL ══ -->
-  <div id="give" class="content-panel" style="padding-top:44px;padding-bottom:80px;">
+  <div id="give" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
+    <div class="panel-scroll">
     <div style="width:100%;max-width:600px;margin:0 auto;padding:0 8px;">
       <div class="give-wrap">
         <div style="text-align:center;margin-bottom:16px;padding-top:8px;"><img
@@ -4377,7 +4404,8 @@
           </div>
         </div>
       </div>
-    </div>
+    </div><!-- /max-width wrapper -->
+    </div><!-- /panel-scroll -->
   </div>
   <!-- give toast -->
   <div id="giveToastOrig"
@@ -4386,76 +4414,84 @@
 
   <div id="connect" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
+    <div class="panel-scroll">
     <h2 class="panel-header"><i class="fas fa-share-alt"></i> CONNECT <i class="fas fa-share-alt"></i></h2>
-    <div class="panel-content">
       <div class="account-selector">
-        <button class="acct-btn active" onclick="switchAccount('ministry',this)"><i class="fas fa-church"></i>
-          Ministry</button>
-        <button class="acct-btn" onclick="switchAccount('pastor',this)"><i class="fas fa-cross"></i> Pastor Tony
-          Kapola</button>
-        <button class="acct-btn" onclick="switchAccount('neema',this)"><i class="fas fa-heart"></i> Pastor Neema
-          Kapola</button>
+        <button class="acct-btn active" onclick="switchAccount('pastor',this)"><i class="fas fa-cross"></i> Pastor Tony</button>
+        <button class="acct-btn" onclick="switchAccount('neema',this)"><i class="fas fa-heart"></i> Pastor Neema</button>
+        <button class="acct-btn" onclick="switchAccount('praise',this)"><i class="fas fa-music"></i> Praise Team</button>
+        <button class="acct-btn" onclick="switchAccount('ministry',this)"><i class="fas fa-church"></i> Ministry</button>
       </div>
-      <!-- MINISTRY -->
-      <div class="acct-section" id="acct-ministry">
+
+      <!-- PASTOR TONY -->
+      <div class="acct-section" id="acct-pastor">
         <div class="connect-section-label">Social Media</div>
         <div class="social-grid">
-          <div class="social-card" onclick="location.href='https://web.facebook.com/pastortonykapola'"><i
-              class="fab fa-facebook"></i>
-            <h3>Facebook</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://youtube.com/@OsbornsPraise/videos'"><i
-              class="fab fa-youtube"></i>
-            <h3>YouTube</h3>
-            <p>Osborns Praise</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://instagram.com/pastortonyosborn'"><i
-              class="fab fa-instagram"></i>
-            <h3>Instagram</h3>
-            <p>@pastortonyosborn</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://tiktok.com/@pastortonykapola'"><i
-              class="fab fa-tiktok"></i>
-            <h3>TikTok</h3>
-            <p>@pastortonykapola</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://www.threads.net/@pastortonyosborn'"><i
-              class="fab fa-threads"></i>
-            <h3>Threads</h3>
-            <p>@pastortonyosborn</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://instagram.com/osbornsministry'"><i
-              class="fab fa-instagram"></i>
-            <h3>Instagram</h3>
-            <p>@osbornsministry</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://wa.me/255713702187'"><i class="fab fa-whatsapp"></i>
-            <h3>WhatsApp</h3>
-            <p>+255 713 702 187</p>
-          </div>
+          <div class="social-card" onclick="location.href='https://youtube.com/@pastortonykapola'"><i class="fab fa-youtube"></i><h3>YouTube</h3><p>Pastor Tony Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://instagram.com/pastortonyosborn'"><i class="fab fa-instagram"></i><h3>Instagram</h3><p>Pastor Tony Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://tiktok.com/@pastortonykapola'"><i class="fab fa-tiktok"></i><h3>TikTok</h3><p>Pastor Tony Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://www.threads.net/@pastortonyosborn'"><i class="fab fa-threads"></i><h3>Threads</h3><p>Pastor Tony Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://web.facebook.com/pastortonykapola'"><i class="fab fa-facebook"></i><h3>Facebook</h3><p>Pastor Tony Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://wa.me/255713702187'"><i class="fab fa-whatsapp"></i><h3>WhatsApp</h3><p>Pastor Tony Kapola</p></div>
         </div>
-
         <div class="connect-section-label" style="margin-top:18px">Podcasts</div>
         <div class="social-grid">
-          <div class="social-card" onclick="location.href='https://pastor-tony-kapola.castos.com'"><i
-              class="fas fa-podcast"></i>
-            <h3>Castos</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
-          <div class="social-card"
-            onclick="location.href='https://podcasts.apple.com/tz/podcast/pastor-tony-kapola/id1609236725'"><i
-              class="fab fa-apple"></i>
-            <h3>Apple Podcasts</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://open.spotify.com/show/4KjZa5wSoeehJjg7sbEyc7'"><i
-              class="fab fa-spotify"></i>
-            <h3>Spotify</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
+          <div class="social-card" onclick="location.href='https://pastor-tony-kapola.castos.com'"><i class="fas fa-podcast"></i><h3>Castos</h3><p>Pastor Tony Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://podcasts.apple.com/tz/podcast/pastor-tony-kapola/id1609236725'"><i class="fab fa-apple"></i><h3>Apple Podcasts</h3><p>Pastor Tony Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://open.spotify.com/show/4KjZa5wSoeehJjg7sbEyc7'"><i class="fab fa-spotify"></i><h3>Spotify</h3><p>Pastor Tony Kapola</p></div>
+        </div>
+      </div>
+
+      <!-- PASTOR NEEMA -->
+      <div class="acct-section" id="acct-neema" style="display:none">
+        <div class="connect-section-label">Social Media</div>
+        <div class="social-grid">
+          <div class="social-card" onclick="location.href='https://youtube.com/@neematonyosborn1'"><i class="fab fa-youtube"></i><h3>YouTube</h3><p>Pastor Neema Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://instagram.com/neematonyosborn'"><i class="fab fa-instagram"></i><h3>Instagram</h3><p>Pastor Neema Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://www.tiktok.com/@neematonyosborn'"><i class="fab fa-tiktok"></i><h3>TikTok</h3><p>Pastor Neema Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://www.threads.com/@neematonyosborn'"><i class="fab fa-threads"></i><h3>Threads</h3><p>Pastor Neema Kapola</p></div>
+        </div>
+        <div class="connect-section-label" style="margin-top:18px">Podcasts</div>
+        <div class="social-grid">
+          <div class="social-card" onclick="location.href='https://podcasts.apple.com/tz/podcast/pastor-neema-tony-osborn/id1833858481'"><i class="fab fa-apple"></i><h3>Apple Podcasts</h3><p>Pastor Neema Kapola</p></div>
+          <div class="social-card" onclick="location.href='https://open.spotify.com/show/4jA5xq8EYO8C8VfeGkbNIt'"><i class="fab fa-spotify"></i><h3>Spotify</h3><p>Pastor Neema Kapola</p></div>
+        </div>
+      </div>
+
+      <!-- MINISTRY -->
+      <div class="acct-section" id="acct-ministry" style="display:none">
+
+        <!-- Osborns Store -->
+        <div class="connect-section-label">Osborns Store</div>
+        <div class="social-grid">
+          <div class="social-card" onclick="location.href='https://store.pastortonyosbornministries.org/'"><i class="fas fa-shopping-bag"></i><h3>Online Store</h3><p>Osborns Store</p></div>
+          <div class="social-card" onclick="location.href='https://www.instagram.com/osbornsstore/#'"><i class="fab fa-instagram"></i><h3>Instagram</h3><p>Osborns Store</p></div>
+          <div class="social-card" onclick="location.href='https://wa.me/255659687569'"><i class="fab fa-whatsapp"></i><h3>WhatsApp</h3><p>Osborns Store</p></div>
         </div>
 
+        <!-- The King & The Code -->
+        <div class="connect-section-label" style="margin-top:18px">The King &amp; The Code</div>
+        <div class="social-grid">
+          <div class="social-card" onclick="location.href='https://thekingandthecode.com/tickets'"><i class="fas fa-ticket-alt"></i><h3>Get Tickets</h3><p>The King &amp; The Code</p></div>
+          <div class="social-card" onclick="location.href='https://www.instagram.com/thekingandthecode/#'"><i class="fab fa-instagram"></i><h3>Instagram</h3><p>The King &amp; The Code</p></div>
+          <div class="social-card" onclick="location.href='https://www.facebook.com/thekingandthecode'"><i class="fab fa-facebook"></i><h3>Facebook</h3><p>The King &amp; The Code</p></div>
+        </div>
+
+        <!-- Osborns Exhibition -->
+        <div class="connect-section-label" style="margin-top:18px">Osborns Exhibition</div>
+        <div class="social-grid">
+          <div class="social-card" onclick="location.href='https://osbornsexhibition.co.tz'"><i class="fas fa-globe"></i><h3>Website</h3><p>Osborns Exhibition</p></div>
+          <div class="social-card" onclick="location.href='https://www.instagram.com/osbornsexhibition/#'"><i class="fab fa-instagram"></i><h3>Instagram</h3><p>Osborns Exhibition</p></div>
+          <div class="social-card" onclick="location.href='https://www.facebook.com/osbornsexhibition'"><i class="fab fa-facebook"></i><h3>Facebook</h3><p>Osborns Exhibition</p></div>
+        </div>
+
+        <!-- Osborns Ministry -->
+        <div class="connect-section-label" style="margin-top:18px">Pastor Tony Osborn Ministries</div>
+        <div class="social-grid">
+          <div class="social-card" onclick="location.href='https://www.instagram.com/pastortonyministries/#'"><i class="fab fa-instagram"></i><h3>Instagram</h3><p>Pastor Tony Osborn Ministries</p></div>
+        </div>
+
+        <!-- OsbornsFM -->
         <div class="connect-section-label" style="margin-top:18px">📻 OsbornsFM — On Air</div>
         <div class="radio-grid">
           <div class="radio-card"><i class="fas fa-broadcast-tower"></i><div class="radio-info"><div class="radio-city">Dar es Salaam</div><div class="radio-freq">106.9 FM</div></div></div>
@@ -4463,105 +4499,6 @@
           <div class="radio-card"><i class="fas fa-broadcast-tower"></i><div class="radio-info"><div class="radio-city">Mbeya</div><div class="radio-freq">94.5 FM</div></div></div>
           <div class="radio-card"><i class="fas fa-broadcast-tower"></i><div class="radio-info"><div class="radio-city">Songwe</div><div class="radio-freq">94.5 FM</div></div></div>
           <div class="radio-card"><i class="fas fa-broadcast-tower"></i><div class="radio-info"><div class="radio-city">Iringa</div><div class="radio-freq">88.0 FM</div></div></div>
-        </div>
-      </div>
-      <div class="acct-section" id="acct-pastor" style="display:none">
-        <div class="connect-section-label">Social Media</div>
-        <div class="social-grid">
-          <div class="social-card" onclick="location.href='https://web.facebook.com/pastortonykapola'"><i
-              class="fab fa-facebook"></i>
-            <h3>Facebook</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://youtube.com/@pastortonykapola'"><i
-              class="fab fa-youtube"></i>
-            <h3>YouTube</h3>
-            <p>@pastortonykapola</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://instagram.com/pastortonyosborn'"><i
-              class="fab fa-instagram"></i>
-            <h3>Instagram</h3>
-            <p>@pastortonyosborn</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://tiktok.com/@pastortonykapola'"><i
-              class="fab fa-tiktok"></i>
-            <h3>TikTok</h3>
-            <p>@pastortonykapola</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://www.threads.net/@pastortonyosborn'"><i
-              class="fab fa-threads"></i>
-            <h3>Threads</h3>
-            <p>@pastortonyosborn</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://instagram.com/osbornsministry'"><i
-              class="fab fa-instagram"></i>
-            <h3>Instagram</h3>
-            <p>@osbornsministry</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://wa.me/255713702187'"><i class="fab fa-whatsapp"></i>
-            <h3>WhatsApp</h3>
-            <p>+255 713 702 187</p>
-          </div>
-        </div>
-
-        <div class="connect-section-label" style="margin-top:18px">Podcasts</div>
-        <div class="social-grid">
-          <div class="social-card" onclick="location.href='https://pastor-tony-kapola.castos.com'"><i
-              class="fas fa-podcast"></i>
-            <h3>Castos</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
-          <div class="social-card"
-            onclick="location.href='https://podcasts.apple.com/tz/podcast/pastor-tony-kapola/id1609236725'"><i
-              class="fab fa-apple"></i>
-            <h3>Apple Podcasts</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://open.spotify.com/show/4KjZa5wSoeehJjg7sbEyc7'"><i
-              class="fab fa-spotify"></i>
-            <h3>Spotify</h3>
-            <p>Pastor Tony Kapola</p>
-          </div>
-        </div>
-      </div>
-      <!-- NEEMA -->
-      <div class="acct-section" id="acct-neema" style="display:none">
-        <div class="connect-section-label">Social Media</div>
-        <div class="social-grid">
-          <div class="social-card" onclick="location.href='https://youtube.com/@neematonyosborn1'"><i
-              class="fab fa-youtube"></i>
-            <h3>YouTube</h3>
-            <p>@neematonyosborn1</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://instagram.com/neematonyosborn'"><i
-              class="fab fa-instagram"></i>
-            <h3>Instagram</h3>
-            <p>@neematonyosborn</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://www.tiktok.com/@neematonyosborn'"><i
-              class="fab fa-tiktok"></i>
-            <h3>TikTok</h3>
-            <p>Pastor Neema</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://www.threads.com/@neematonyosborn'"><i
-              class="fab fa-threads"></i>
-            <h3>Threads</h3>
-            <p>@neematonyosborn</p>
-          </div>
-        </div>
-        <div class="connect-section-label" style="margin-top:18px">Podcasts</div>
-        <div class="social-grid">
-          <div class="social-card"
-            onclick="location.href='https://podcasts.apple.com/tz/podcast/pastor-neema-tony-osborn/id1833858481'"><i
-              class="fab fa-apple"></i>
-            <h3>Apple Podcasts</h3>
-            <p>Pastor Neema</p>
-          </div>
-          <div class="social-card" onclick="location.href='https://open.spotify.com/show/4jA5xq8EYO8C8VfeGkbNIt'"><i
-              class="fab fa-spotify"></i>
-            <h3>Spotify</h3>
-            <p>Pastor Neema</p>
-          </div>
         </div>
       </div>
       <div class="contact-section">
@@ -4576,8 +4513,8 @@
 
   <div id="news" class="content-panel">
     <button class="panel-close-btn" onclick="closePanel(this)">&#10005;</button>
+    <div class="panel-scroll">
     <h2 class="panel-header"><i class="fas fa-newspaper"></i> NEWS <i class="fas fa-newspaper"></i></h2>
-    <div class="panel-content">
       <div class="news-item-card">
         <div class="news-item-icon">🙏</div>
         <div class="news-item-body">
@@ -4819,7 +4756,6 @@
       if (p) p.classList.add('active');
       setDimmed(true);
       setNavDimmed(true);
-      // Push a history entry so the phone's back button closes this panel
       history.pushState({ pto: 'panel', id: id }, '');
     }
     function closePanelById(id) {
@@ -4840,7 +4776,6 @@
       panel.classList.remove('active');
       setDimmed(false);
       setNavDimmed(false);
-      // If the close button was tapped, go back in history to keep it in sync
       if (history.state && history.state.pto) {
         history.back();
       }
@@ -4856,11 +4791,7 @@
 
     // ── BACK BUTTON HANDLER ───────────────────────────────────────────
     window.addEventListener('popstate', function (e) {
-      // A panel or navigator was open — close it without leaving the page
-      if (cosmicOpen()) {
-        closeNavigator();
-        return;
-      }
+      if (cosmicOpen()) { closeNavigator(); return; }
       var activePanel = document.querySelector('.content-panel.active');
       if (activePanel) {
         var pid = activePanel.id;
@@ -4999,20 +4930,45 @@
     function tCount() { var l = document.getElementById('tMessage').value.length; var e = document.getElementById('tCharCount'); if (e) { e.textContent = l; e.style.color = l >= 1800 ? '#c9a84c' : 'var(--sage)'; } }
     function pCount() { var l = document.getElementById('pMessage').value.length; var e = document.getElementById('pCharCount'); if (e) { e.textContent = l; e.style.color = l >= 1800 ? '#c9a84c' : 'var(--sage)'; } }
 
-    function saveToAdmin(key, data) {
-      try { var arr = JSON.parse(localStorage.getItem(key) || '[]'); data.id = 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5); data.date = new Date().toISOString(); data.attended = false; arr.push(data); localStorage.setItem(key, JSON.stringify(arr)); } catch (e) { console.error(e); }
+    // ── FIREBASE FORM SUBMIT HELPER ───────────────────────────────────
+    function fbPush(path, data) {
+      if (window.firebaseDB) {
+        window.firebaseDB.ref(path).push(data);
+      }
+      // Also keep localStorage as offline backup
+      try {
+        var arr = JSON.parse(localStorage.getItem(path) || '[]');
+        arr.push(data);
+        localStorage.setItem(path, JSON.stringify(arr));
+      } catch(e) {}
+    }
+
+    // ── TESTIMONY PHONE LIMIT ─────────────────────────────────────────
+    function limitTestimonyPhone(input) {
+      var cc = document.getElementById('tPhoneCc');
+      if (!cc) return;
+      var max = phoneMaxLen[cc.value] || 12;
+      if (input.value.length > max) input.value = input.value.slice(0, max);
+    }
+
+    function limitTestimonyPhone(input) {
+      var cc = document.getElementById('tPhoneCc');
+      if (!cc) return;
+      var max = phoneMaxLen[cc.value] || 12;
+      if (input.value.length > max) input.value = input.value.slice(0, max);
     }
 
     function submitTestimony() {
-      var fn = document.getElementById('tFirst'); if (!fn || !fn.value.trim()) { alert('Please enter your first name.'); return; }
+      var fn = document.getElementById('tFirst'); if (!fn || !fn.value.trim()) { alert('Please enter your full name.'); return; }
       var msg = document.getElementById('tMessage'); if (!msg || !msg.value.trim()) { alert('Please share your testimony.'); return; }
       var pub = document.querySelector('input[name="tPublic"]:checked');
       var cc = document.getElementById('tCountry');
+      var fullName = fn.value.trim();
+      var nameParts = fullName.split(' ');
       var data = {
-        firstName: fn.value, lastName: (document.getElementById('tLast') || {}).value || '',
+        firstName: nameParts[0], lastName: nameParts.slice(1).join(' '),
         email: (document.getElementById('tEmail') || {}).value || '',
         phone: (document.getElementById('tPhoneCc') || {}).value + ' ' + (document.getElementById('tPhone') || {}).value,
-        gender: (document.getElementById('tGender') || {}).value || '',
         category: (document.getElementById('tCategory') || {}).value || '',
         country: cc ? cc.options[cc.selectedIndex].text : '',
         city: (document.getElementById('tCity') || {}).value || '',
@@ -5020,18 +4976,20 @@
         id: 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
         date: new Date().toISOString(), attended: false
       };
-      try { var arr = JSON.parse(localStorage.getItem('pto_testimonies') || '[]'); arr.push(data); localStorage.setItem('pto_testimonies', JSON.stringify(arr)); } catch (e) { }
+      fbPush('pto_testimonies', data);
       document.getElementById('tForm').style.display = 'none';
       document.getElementById('tSuccess').style.display = 'block';
     }
     function updateTCount() { var l = document.getElementById('tMessage').value.length; var el = document.getElementById('tCount'); if (el) { el.textContent = l; el.style.color = l >= 1800 ? '#c9a84c' : 'var(--sage)'; } }
 
     function submitPrayer() {
-      var fn = document.getElementById('pFirst'); if (!fn || !fn.value.trim()) { alert('Please enter your first name.'); return; }
+      var fn = document.getElementById('pFirst'); if (!fn || !fn.value.trim()) { alert('Please enter your full name.'); return; }
       var msg = document.getElementById('pMessage'); if (!msg || !msg.value.trim()) { alert('Please share your prayer request.'); return; }
       var cc = document.getElementById('pCountry');
+      var fullName = fn.value.trim();
+      var nameParts = fullName.split(' ');
       var data = {
-        firstName: fn.value, lastName: (document.getElementById('pLast') || {}).value || '',
+        firstName: nameParts[0], lastName: nameParts.slice(1).join(' '),
         email: (document.getElementById('pEmail') || {}).value || '',
         phone: (document.getElementById('pPhoneCc') || {}).value + ' ' + (document.getElementById('pPhone') || {}).value,
         category: (document.getElementById('pCategory') || {}).value || '',
@@ -5041,13 +4999,43 @@
         id: 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
         date: new Date().toISOString(), attended: false
       };
-      try { var arr = JSON.parse(localStorage.getItem('pto_prayers') || '[]'); arr.push(data); localStorage.setItem('pto_prayers', JSON.stringify(arr)); } catch (e) { }
+      fbPush('pto_prayers', data);
+      sendPrayerAutoResponse(fullName, data.email);
       document.getElementById('pForm').style.display = 'none';
       document.getElementById('pSuccess').style.display = 'block';
     }
-    function updatePCount() { var l = document.getElementById('pMessage').value.length; var el = document.getElementById('pCount'); if (el) { el.textContent = l; el.style.color = l >= 1800 ? '#c9a84c' : 'var(--sage)'; } }
+    // ── PHONE LENGTH LIMITS BY COUNTRY CODE ─────────────────────────
+    var phoneMaxLen = {
+      '+255': 9, '+254': 9, '+256': 9, '+250': 9, '+243': 9,
+      '+251': 9, '+27': 9,  '+234': 10,'+233': 9, '+1': 10,
+      '+44': 10, '+971': 9, '+91': 10, '+61': 9,  '+49': 11,
+      '+33': 9,  '+1-CA': 10
+    };
+    function limitPrayerPhone(input) {
+      var cc = document.getElementById('pPhoneCc');
+      if (!cc) return;
+      var max = phoneMaxLen[cc.value] || 12;
+      if (input.value.length > max) input.value = input.value.slice(0, max);
+    }
 
-    var tAudioRec = null, tAudioChunks = [], tAudioOn = false;
+    // ── EMAIL AUTO-RESPONSE (prayer) ─────────────────────────────────
+    function sendPrayerAutoResponse(name, email) {
+      if (!email || !email.trim() || !email.includes('@')) return;
+      // Use EmailJS free tier — configure once with your EmailJS account
+      // Falls back silently if not configured
+      try {
+        if (window.emailjs) {
+          window.emailjs.send('service_pto', 'template_prayer', {
+            to_email: email,
+            to_name: name,
+            subject: 'We Are Praying for You',
+            message: 'Thank you for sharing your prayer request with us.\n\nOur prayer team at Pastor Tony Osborn Ministries will be lifting your request before the Lord.\n\n"Give all your worries to him, because he cares about you."\n1 Peter 5:7 NCV\n\nMay God bring you peace, strength, and breakthrough.\n\nBlessings,\nPastor Tony Osborn Ministries Prayer Team'
+          });
+        }
+      } catch(e) {}
+    }
+
+    var tAudioRec = null, tAudioChunks = [], tAudioOn = false, tAudioTimer = null;
     function tToggleAudio() {
       if (!tAudioOn) {
         navigator.mediaDevices.getUserMedia({ audio: true }).then(function (s) {
@@ -5057,21 +5045,27 @@
             var url = URL.createObjectURL(new Blob(tAudioChunks, { type: 'audio/webm' }));
             var p = document.getElementById('tMediaPreview'); if (p) { p.style.display = 'block'; p.innerHTML = '<audio controls src="' + url + '" style="width:100%;"></audio>'; }
             s.getTracks().forEach(function (t) { t.stop(); });
+            clearTimeout(tAudioTimer);
           };
           tAudioRec.start(); tAudioOn = true;
+          // 1.5 minute max
+          setTimeout(function() { if (tAudioOn && tAudioRec) { tAudioRec.stop(); tAudioOn = false; document.getElementById('tAudioBtn').classList.remove('recording'); document.getElementById('tAudioLbl').textContent = 'Record Audio'; document.getElementById('tAudioIcon').className = 'fas fa-microphone'; } }, 90000);
           document.getElementById('tAudioBtn').classList.add('recording');
           document.getElementById('tAudioLbl').textContent = 'Stop';
           document.getElementById('tAudioIcon').className = 'fas fa-stop';
+          // Auto-stop at 1 min 30 sec
+          tAudioTimer = setTimeout(function() { if (tAudioOn) tToggleAudio(); }, 90000);
         }).catch(function (err) { console.error(err); alert('Microphone access denied or not available.'); });
       } else {
+        clearTimeout(tAudioTimer);
         if (tAudioRec) tAudioRec.stop(); tAudioOn = false;
         document.getElementById('tAudioBtn').classList.remove('recording');
-        document.getElementById('tAudioLbl').textContent = 'Record Audio';
+        document.getElementById('tAudioLbl').textContent = 'Audio';
         document.getElementById('tAudioIcon').className = 'fas fa-microphone';
       }
     }
 
-    var tVideoRec = null, tVideoChunks = [], tVideoOn = false;
+    var tVideoRec = null, tVideoChunks = [], tVideoOn = false, tVideoTimer = null;
     function tToggleVideo() {
       if (!tVideoOn) {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function (s) {
@@ -5081,16 +5075,22 @@
             var url = URL.createObjectURL(new Blob(tVideoChunks, { type: 'video/webm' }));
             var p = document.getElementById('tMediaPreview'); if (p) { p.style.display = 'block'; p.innerHTML = '<video controls src="' + url + '" style="width:100%;max-height:160px;border-radius:8px;"></video>'; }
             s.getTracks().forEach(function (t) { t.stop(); });
+            clearTimeout(tVideoTimer);
           };
           tVideoRec.start(); tVideoOn = true;
+          // 1.5 minute max
+          setTimeout(function() { if (tVideoOn && tVideoRec) { tVideoRec.stop(); tVideoOn = false; document.getElementById('tVideoBtn').classList.remove('recording'); document.getElementById('tVideoLbl').textContent = 'Record Video'; document.getElementById('tVideoIcon').className = 'fas fa-video'; } }, 90000);
           document.getElementById('tVideoBtn').classList.add('recording');
           document.getElementById('tVideoLbl').textContent = 'Stop';
           document.getElementById('tVideoIcon').className = 'fas fa-stop';
+          // Auto-stop at 1 min 30 sec
+          tVideoTimer = setTimeout(function() { if (tVideoOn) tToggleVideo(); }, 90000);
         }).catch(function (err) { console.error(err); alert('Camera access denied or not available.'); });
       } else {
+        clearTimeout(tVideoTimer);
         if (tVideoRec) tVideoRec.stop(); tVideoOn = false;
         document.getElementById('tVideoBtn').classList.remove('recording');
-        document.getElementById('tVideoLbl').textContent = 'Record Video';
+        document.getElementById('tVideoLbl').textContent = 'Video';
         document.getElementById('tVideoIcon').className = 'fas fa-video';
       }
     }
@@ -5620,32 +5620,27 @@
 
       if (!ok) { showToast('Please complete all required fields'); return; }
 
-      try {
-        var list = JSON.parse(localStorage.getItem('pto_volunteers') || '[]');
-        var fullName = nameEl.value.trim();
-        var nameParts = fullName.split(' ');
-        var firstName = nameParts[0];
-        var lastName = nameParts.slice(1).join(' ');
-        list.push({
-          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-          date: new Date().toISOString(),
-          firstName: firstName,
-          lastName: lastName,
-          name: fullName,
-          phone: contactEl.value.trim(),
-          contact: contactEl.value.trim(),
-          roles: roles.slice(),
-          ministry: roles.join(', '),
-          schedule: schedVal,
-          availSun: schedVal.indexOf('Sunday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
-          availWeek: schedVal.indexOf('Thursday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
-          availSat: schedVal.indexOf('Saturday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
-          availEvents: schedVal.indexOf('Special Events') > -1,
-          contacted: false,
-          attended: false
-        });
-        localStorage.setItem('pto_volunteers', JSON.stringify(list));
-      } catch (e) { }
+      var fullName = nameEl.value.trim();
+      var nameParts = fullName.split(' ');
+      var volData = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        date: new Date().toISOString(),
+        firstName: nameParts[0],
+        lastName: nameParts.slice(1).join(' '),
+        name: fullName,
+        phone: contactEl.value.trim(),
+        contact: contactEl.value.trim(),
+        roles: roles.slice(),
+        ministry: roles.join(', '),
+        schedule: schedVal,
+        availSun: schedVal.indexOf('Sunday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
+        availWeek: schedVal.indexOf('Thursday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
+        availSat: schedVal.indexOf('Saturday') > -1 || schedVal === 'All Services (Thursday, Saturday & Sunday)',
+        availEvents: schedVal.indexOf('Special Events') > -1,
+        contacted: false,
+        attended: false
+      };
+      fbPush('pto_volunteers', volData);
 
       document.getElementById('volFormCard').style.display = 'none';
       document.getElementById('volSuccessScreen').style.display = 'block';
